@@ -1,6 +1,28 @@
 # Various Kubernetes Commands and Scripts
 
-## Get Root Containers 📦
+## List all pods from all namespaces and their containers 📦
+
+    $kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{"NAMESPACE: "}{.metadata.namespace}{"\n"}{"POD NAME: "}{.metadata.name}{"\n"}{"CONTAINER NAMES:"}{range .spec.containers[*]}{"\n"}{.name}{end}{end}'
+
+### Expected results:
+
+```
+NAMESPACE: default
+POD NAME: kali-latest
+CONTAINER NAMES:
+kali-latest
+NAMESPACE: default
+POD NAME: nginx-latest
+CONTAINER NAMES:
+nginx-latest
+NAMESPACE: kube-system
+POD NAME: aws-node-7nznw
+CONTAINER NAMES:
+aws-node
+aws-eks-nodeagent
+```
+
+## Get root containers 📦
 ### Motivation:
 Running Kubernetes containers as root can lead to security vulnerabilities and malicious attacks, 
 as well as unintended changes to the host system. It's best to avoid running containers 
@@ -27,3 +49,4 @@ Namespace: kube-system - Pod: coredns-6f6d89bcc9-rbh2x - Container: coredns - Ru
 Namespace: kube-system - Pod: eks-pod-identity-agent-kdctc - Container: eks-pod-identity-agent - Running as root: true
 Namespace: kube-system - Pod: kube-proxy-czh57 - Container: kube-proxy - Running as root: true
 ```
+
