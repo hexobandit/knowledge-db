@@ -16,7 +16,7 @@ You should get result similar to this:
     pip install kube-hunter
 
 ## Enumerate AWS EKS API Endpoint 
-Get rid of ```https://```
+Get the URL for the API Sever Endpoint from AWS EKS console, however lose the ```https://```
 
     kube-hunter --remote B6E3EF7XXXXXXXXXXXX.sk1.eu-central-1.eks.amazonaws.com
 
