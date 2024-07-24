@@ -7,6 +7,10 @@
 
     source /kube-hunter/bin/activate
 
+You should get result similar to this:
+
+    (kube-hunter) username@debian-gnu-linux-12
+
 ## Install Kube-Hunter into kube-hunter virtual environment
 
     pip install kube-hunter
