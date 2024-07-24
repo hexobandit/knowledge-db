@@ -1,4 +1,4 @@
-# Kube Hunter Installation
+# Kube Hunter Installation 🏹
 ## Set Python virtual environment
 
     mkdir /python-projects && cd /python-projects
