@@ -17,7 +17,7 @@ Looks like:
 
     | parse content, "LD 'serverName: ' STRING:newCollumnName"
 
-### Time T - 10 Days
+### Time T - 10 Days 🕗
 Fetch way:
 
     fetch logs, from:now()-1d
@@ -46,3 +46,9 @@ Probably better way:
     | filter count > 10
     | sort count desc
 
+### Summary Count By + Timestamp 〽️
+**Displays events per minute in the graph bar** 
+
+    | fields timestamp, event.type, content
+    | sort timestamp desc
+    | summarize count(), by: {bin(timestamp, 1m)}
