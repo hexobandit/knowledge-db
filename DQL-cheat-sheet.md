@@ -26,6 +26,10 @@ Filter way:
 
     | filter timestamp >= now() - 10d and timestamp <= now()
 
+### Scan Limit GB
+
+    fetch logs, from:now()-10d, scanLimitGBytes:800
+
 ### Simple Summary
 
     | fieldsSummary newCollumnName
@@ -35,4 +39,10 @@ Filter way:
     | summarize count(), by:{newCollumnName}
     | filter `count()` > 10
     | sort `count()` desc
+
+Probably better way:
+
+    | summarize count = count(), by: {newCollumnName}
+    | filter count > 10
+    | sort count desc
 
