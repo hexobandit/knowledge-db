@@ -18,6 +18,11 @@ Looks like:
     | parse content, "LD 'serverName: ' STRING:newCollumnName"
 
 ### Time T - 10 Days
+Fetch way:
+
+    fetch logs, from:now()-1d
+
+Filter way:
 
     | filter timestamp >= now() - 10d and timestamp <= now()
 
@@ -25,7 +30,9 @@ Looks like:
 
     | fieldsSummary newCollumnName
 
-### Count(), by Summary
+### Summary Count By + Filter and Sort
 
     | summarize count(), by:{newCollumnName}
+    | filter `count()` > 10
+    | sort `count()` desc
 
