@@ -21,6 +21,11 @@ Looks like:
 
     | filter timestamp >= now() - 10d and timestamp <= now()
 
-### Summary
+### Simple Summary
 
     | fieldsSummary newCollumnName
+
+### Count(), by Summary
+
+    | summarize count(), by:{newCollumnName}
+
