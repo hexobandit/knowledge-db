@@ -35,9 +35,12 @@ Specify timeframe : Fetch way with absolute time ranges with the timeframe param
 
     fetch logs, timeframe:"2024-10-01T00:00:00Z/2024-10-05T12:00:00Z"
 
-### Scan Limit GB 🗻
+### Scan Limit GB (Your execution was stopped after ... )🗻
 
     fetch logs, from:now()-10d, scanLimitGBytes:800
+
+### Scan Limit # of Records (Your result has been limited to 1000)🗻
+    fetch logs, samplingRatio:4999
 
 ### Simple Summary  
 
