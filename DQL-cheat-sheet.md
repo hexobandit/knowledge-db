@@ -1,12 +1,13 @@
 # Dynatrace (DQL) Cheat Sheet 🐙
 
-### Normal Filtering
+### Filtering 💬
     fetch log
     | filter startsWith(host.name, "nginx001")
 
-### Collumn Filtering 💬
+### Filtering Using Contains:
+
     fetch log
-    | filter contains(collumn_name, "something-you-search-for")
+    | filter contains(host.name, "something-you-search-for")
 
 ### Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field
