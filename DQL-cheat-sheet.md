@@ -1,6 +1,6 @@
 # Dynatrace (DQL) Cheat Sheet 🐙
 
-### Filtering 💬
+### Filtering 
     fetch log
     | filter startsWith(host.name, "nginx001")
 
