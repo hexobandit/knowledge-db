@@ -4,9 +4,9 @@
     fetch log
     | filter startsWith(host.name, "nginx001")
 
-### Content Filtering
+### Collumn Filtering 💬
     fetch log
-    | filter contains(content, "something-you-search-for")
+    | filter contains(collumn_name, "something-you-search-for")
 
 ### Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field
@@ -17,20 +17,28 @@ Looks like:
 
     | parse content, "LD 'serverName: ' STRING:newCollumnName"
 
-### Time T - 10 Days 🕗
-Fetch way:
+### Time 🕗
+T minus 10 Day : Fetch way:
 
-    fetch logs, from:now()-1d
+    fetch logs, from:now()-10d
 
-Filter way:
+T minus 10 Day : Filter way:
 
     | filter timestamp >= now() - 10d and timestamp <= now()
 
-### Scan Limit GB
+Specify timeframe - Fetch way:
+
+    fetch logs, from:now() - 15d, to:now() - 10d
+
+Specify timeframe : Fetch way with absolute time ranges with the timeframe parameter
+
+    fetch logs, timeframe:"2024-10-01T00:00:00Z/2024-10-05T12:00:00Z"
+
+### Scan Limit GB 🗻
 
     fetch logs, from:now()-10d, scanLimitGBytes:800
 
-### Simple Summary
+### Simple Summary  
 
     | fieldsSummary newCollumnName
 
