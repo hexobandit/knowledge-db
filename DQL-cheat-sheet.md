@@ -40,7 +40,7 @@ Specify timeframe : Fetch way with absolute time ranges with the timeframe param
     fetch logs, from:now()-10d, scanLimitGBytes:800
 
 ### Scan Limit # of Records (Your result has been limited to 1000)🗻
-    fetch logs, samplingRatio:4999 <<<< WTF something else
+    | limit 5000
 
 ### Simple Summary  
 
