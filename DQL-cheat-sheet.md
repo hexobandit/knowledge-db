@@ -33,14 +33,14 @@ Specify timeframe - Fetch way:
 
 Specify timeframe : Fetch way with absolute time ranges with the timeframe parameter
 
-    fetch logs, timeframe:"2024-10-01T00:00:00Z/2024-10-05T12:00:00Z"
+    fetch logs, timeframe:"2024-10-01T00:00:00Z/2024-10-01T23:59:59Z
 
 ### Scan Limit GB (Your execution was stopped after ... )🗻
 
     fetch logs, from:now()-10d, scanLimitGBytes:800
 
 ### Scan Limit # of Records (Your result has been limited to 1000)🗻
-    | limit 5000
+- Use Dynatrace Notebook (new feature)
 
 ### Simple Summary  
 
