@@ -1,15 +1,15 @@
 # Dynatrace (DQL) Cheat Sheet 🐙
 
-### Filtering 
+## Filtering 
     fetch log
     | filter startsWith(host.name, "nginx001")
 
-### Filtering Using Contains:
+## Filtering Using Contains:
 
     fetch log
     | filter contains(host.name, "something-you-search-for")
 
-### Content Parsing to New Collumn
+## Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field (works only for single line of data)
 - - ```"DATA:``` If you need to parse multi-line use The 'DATA' content type
 - ```'serverName: '``` is the string in the content
@@ -23,7 +23,7 @@ Or like this:
 
     | parse content, "DATA 'serveName: ' STRING:newCollumnNameII"
 
-### Time 🕗
+## Time 🕗
 T minus 10 Day : Fetch way:
 
     fetch logs, from:now()-10d
@@ -40,18 +40,22 @@ Specify timeframe : Fetch way with absolute time ranges with the timeframe param
 
     fetch logs, timeframe:"2024-10-01T00:00:00Z/2024-10-01T23:59:59Z
 
-### Scan Limit GB (Your execution was stopped after ... )🗻
+Sort Timestamp Desc
+
+    | sort timestamp desc
+
+## Scan Limit GB (Your execution was stopped after ... )🗻
 
     fetch logs, from:now()-10d, scanLimitGBytes:800
 
-### Scan Limit # of Records (Your result has been limited to 1000)🗻
+## Scan Limit # of Records (Your result has been limited to 1000)🗻
 - Use Dynatrace Notebook (new feature)
 
-### Simple Summary  
+## Simple Summary  
 
     | fieldsSummary newCollumnName
 
-### Summary Count By + Filter and Sort
+## Summary Count By + Filter and Sort
 
     | summarize count(), by:{newCollumnName}
     | filter `count()` > 10
@@ -63,9 +67,11 @@ Probably better way:
     | filter count > 10
     | sort count desc
 
-### Summary Count By + Timestamp 〽️
+## Summary Count By + Timestamp 〽️
 **Displays events per minute in the graph bar** 
 
     | fields timestamp, event.type, content
     | sort timestamp desc
     | summarize count(), by: {bin(timestamp, 1m)}
+
+    
