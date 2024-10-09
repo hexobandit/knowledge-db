@@ -10,13 +10,18 @@
     | filter contains(host.name, "something-you-search-for")
 
 ### Content Parsing to New Collumn
-- ```"LD:``` start by matching any line data at the beginning of the field
+- ```"LD:``` start by matching any line data at the beginning of the field (works only for single line of data)
+- - ```"DATA:``` If you need to parse multi-line use The 'DATA' content type
 - ```'serverName: '``` is the string in the content
 - ```STRING:newCollumnName"``` is the name of the new collumn populated by the value of ```'serverName: '```
 
 Looks like:
 
     | parse content, "LD 'serverName: ' STRING:newCollumnName"
+
+Or like this:
+
+    | parse content, "DATA 'serveName: ' STRING:newCollumnNameII"
 
 ### Time 🕗
 T minus 10 Day : Fetch way:
