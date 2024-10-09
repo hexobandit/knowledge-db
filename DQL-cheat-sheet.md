@@ -7,7 +7,12 @@
 ## Filtering Using Contains:
 
     fetch log
-    | filter contains(host.name, "something-you-search-for")
+    | filter contains(content, "something-you-search-for")
+    
+And to exclude things:
+    
+    fetch log
+    | filter NOT contains(content, "something-you-search-for") 
 
 ## Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field (works only for single line of data)
