@@ -14,6 +14,10 @@ And to exclude things:
     fetch log
     | filter NOT contains(content, "something-you-search-for") 
 
+## Display Only Selected Collumns
+
+    | fields timestamp, content
+
 ## Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field (works only for single line of data)
 - - ```"DATA:``` If you need to parse multi-line use The 'DATA' content type
