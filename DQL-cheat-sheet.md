@@ -4,7 +4,7 @@
     fetch log
     | filter startsWith(host.name, "nginx001")
 
-## Filtering Using Contains:
+### Filtering Using Contains:
 
     fetch log
     | filter contains(content, "something-you-search-for")
@@ -14,11 +14,11 @@ And to exclude things:
     fetch log
     | filter NOT contains(content, "something-you-search-for") 
 
-## Display Only Selected Collumns
+### Display Only Selected Collumns
 
     | fields timestamp, content
 
-## Content Parsing to New Collumn
+### Content Parsing to New Collumn
 - ```"LD:``` start by matching any line data at the beginning of the field (works only for single line of data)
 - - ```"DATA:``` If you need to parse multi-line use The 'DATA' content type
 - ```'serverName: '``` is the string in the content
