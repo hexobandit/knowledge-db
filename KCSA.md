@@ -87,10 +87,18 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     - Securing Cluster Components
         - Enforce TLS
         - Enforce API AuthN (e.g., OIDC)
-        - API AuthZ RBAC combines verbs (get, create, delete, list) with resources (pods, services, nodes) and can be namespace scoped.
-            - Node Authorisation - When the AuthorizeNodeWithSelectors feature is enabled (along with the pre-requisite AuthorizeWithSelectors feature), kubelets are only allowed to read their own Node objects, and are only allowed to read pods bound to their node
-            - RBAC Authorisation
+        - API AuthZ RBAC (verbs (get, create, delete, list) with resources (pods, services, nodes) and can be namespace scoped)
+            - Node Authorisation
+              - kubelets are only allowed to read their own Node objects
+              - kubeletes are only allowed to read pods bound to their node
+            - RBAC Authorisation 
+              - Roles and ClusterRoles
+              - RoleBindings and ClusterRoleBindings
+              - Principle of Least Privilege
             - Node Restrictions (Admission Controller)
+              - Enforces additional validation rules beyond authN and authZ (RBAC)
+              - Second layer of validation applied after RBAC authorization (kube native)
+              - E.g., Limits the scope of actions kubelets can perform to their own Node object or Pods bound to their node
     - Securing Apps
 - **Container**
 - **Code**
