@@ -10,7 +10,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     The 4Cs of Cloud Native Security ✔️
     Cloud Provider and Infrastructure Security ✔️
     Controls and Frameworks ✔️
-    Isolation Techniques
+    Isolation Techniques ✔️
     Artifact Repository and Image Security
     Workload and Application Code Security
 
@@ -138,4 +138,38 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
   - Infrastructure-as-Code (IaC) Scanning
   - AWS Security Hub, Azure Defender
   - Policy Enforcement: OPA (Open Policy Agent), Kyverno, or Gatekeeper
- 
+
+ ### Isolation Techniques
+
+- Namespace Isolation
+  - Use namespaces to logically separate workloads
+  - Enforce RBAC rules scoped to namespaces
+- Network Isolation
+  - Use Network Policies to restrict pod-to-pod and pod-to-external communication
+  - Isolate clusters with VPCs or subnets
+  - Configure firewalls or Network Security Groups to restrict traffic
+- Node Isolation
+  - Schedule sensitive workloads on dedicated nodes.
+  - Deploy system-critical pods (e.g., kube-system) separately from application workloads
+  - Harden nodes by disabling unused ports and services & PSP & Kernal hardening tools
+- Storage Isolation
+  - Use volume policies to ensure data is mounted securely (e.g., read-only when possible).
+  - Isolate Persistent Volume Claims (PVCs) Like Storage Account by namespace.
+  - Encrypt storage using cloud provider tools or Kubernetes CSI.
+- Workload Isolation
+
+	•	Use Pod Security Standards (e.g., baseline, restricted).
+	•	Prevent privilege escalation (allowPrivilegeEscalation: false).
+	•	Run containers as non-root users.
+
+6. API Access Isolation
+
+	•	Restrict API server access using network controls (e.g., VPN, private endpoints).
+	•	Configure RBAC to limit API access per user or service account.
+	•	Disable anonymous and unauthenticated access.
+
+7. Multi-Tenancy
+
+	•	Use unique namespaces, Network Policies, and quotas for tenants.
+	•	Use workload identity or separate IAM roles for each tenant.
+	•	Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
