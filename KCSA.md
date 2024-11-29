@@ -69,12 +69,12 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 
 ## Overview of Cloud Native Security 14%
 ### The 4Cs of Cloud Native Security
-- Cloud
+- **Cloud**
     - Network access to API server (Control Plane) needs to be only internal. Controlled by network access control list restricted to set of IPs that need administer the cluster
     - Network access to Nodes should be configured to only accept connections via network access control list from the control plane on specified ports and accept connections for services in k8s of type NodePort and LoadBalancer. No node should be exposed to internet.
     - K8s access to cloud provider API. Provide the cloud provider access based on least privilege principle.
     - Access to etcd needs to be limited to the control plane only + TLS + encryption at rest.
-- Cluster
+- **Cluster**
     - Components
         - TLS
         - API AuthN
@@ -83,5 +83,5 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
             - RBAC Authorisation
             - Node Restrictions (Admission Controller)
     - Apps
-- Container
-- Code
+- **Container**
+- **Code**
