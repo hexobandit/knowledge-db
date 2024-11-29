@@ -71,22 +71,26 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 ### The 4Cs of Cloud Native Security
 - **Cloud**
     - API server
-      - Internal only traffic
-      - Controlled by network access control list (ACLs)
+      - Ensure internal-only traffic 
+      - Use Network ACLs or NSGs to restrict access
+      - Ensure internal-only traffic 
     - Nodes
-      - Traffic via ACLs only from the control plane on specified ports
-      - Accept connections for services in k8s of type NodePort and LoadBalancer
-      - No node should be exposed to internet
+      - Restrict traffic to nodes from the control plane via specified ports using ACLs
+      - Allow access only for NodePort and LoadBalancer services
+      - No direct node exposure to the Internet
     - Cloud provider API (Allows AKS clusters to provision Azure Load Balancers, Disks, etc.)
-      - Least privilege principle.
+      - Apply Least Privilege Principle for IAM roles, service principals, or credentials
+      - Restrict access to the cloud provider API to necessary users and services
     - etcd
       - Access limited to the control plane only
       - Enforce TLS
       - Enforce Encryption at rest (CSI Drivers for external vaults)
 - **Cluster**
     - Securing Cluster Components
-        - Enforce TLS
-        - Enforce API AuthN (e.g., OIDC)
+        - Use private clusters 
+        - Enforce (m)TLS
+        - Apply Network Policies for pod-to-pod and pod-to-external traffic
+        - Enforce API AuthN (e.g., OIDC) (Rotate and expire service account tokens)
         - API AuthZ RBAC (verbs (get, create, delete, list) with resources (pods, services, nodes) and can be namespace scoped)
             - Node Authorisation
               - kubelets are only allowed to read their own Node objects
