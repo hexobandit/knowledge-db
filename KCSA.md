@@ -86,6 +86,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
       - Access limited to the control plane only
       - Enforce TLS
       - Enforce Encryption at rest (CSI Drivers for external vaults)
+        
 - **Cluster**
     - **Securing Cluster Components**
         - Use private clusters 
@@ -97,18 +98,22 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
               - Roles and ClusterRoles
               - RoleBindings and ClusterRoleBindings
               - Principle of Least Privilege for all users, service accounts, and system components
+                
             - **Node Authorisation**
               - Kubelets can only access their own Node object
               - Kubelets can only access Pods bound to their node
+                
             - **Node Restrictions (Admission Controller)**
               - Enforces additional validation rules beyond authN and authZ (RBAC)
               - Second layer of validation applied after RBAC authorization (kube native)
               - E.g., Limits the scope of actions kubelets can perform to their own Node object or Pods bound to their node
+                
     - **Securing Apps**
       - Limit the use of hostPath volumes
       - Use Pod Security Policies (PSP) or its replacement (e.g., Kyverno or OPA/Gatekeeper)
       - Configure resource requests and limits to avoid resource exhaustion
       - Scan for vulnerabilities within code
+        
 - **Container**
       - Use trusted container registries
       - Image signing and enforcment (e.g., via OPA Gatekeeper)
@@ -117,6 +122,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
       - Runtime - Detec anomalies e.g., via Falco
       - Runtime - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
       - Runtime - Limit container capabilities (e.g., avoid CAP_SYS_ADMIN)
+
 - **Code**
       - Use Static Application Security Testing (SAST) tools
       - Use tools like Dependabot or Snyk to monitor vulnerabilities in dependencies
@@ -141,35 +147,36 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 
  ### Isolation Techniques
 
-- Namespace Isolation
+- **Namespace Isolation**
   - Use namespaces to logically separate workloads
   - Enforce RBAC rules scoped to namespaces
-- Network Isolation
+    
+- **Network Isolation**
   - Use Network Policies to restrict pod-to-pod and pod-to-external communication
   - Isolate clusters with VPCs or subnets
   - Configure firewalls or Network Security Groups to restrict traffic
-- Node Isolation
+    
+- **Node Isolation**
   - Schedule sensitive workloads on dedicated nodes.
   - Deploy system-critical pods (e.g., kube-system) separately from application workloads
   - Harden nodes by disabling unused ports and services & PSP & Kernal hardening tools
-- Storage Isolation
+    
+- **Storage Isolation**
   - Use volume policies to ensure data is mounted securely (e.g., read-only when possible).
   - Isolate Persistent Volume Claims (PVCs) Like Storage Account by namespace.
   - Encrypt storage using cloud provider tools or Kubernetes CSI.
-- Workload Isolation
-
-	•	Use Pod Security Standards (e.g., baseline, restricted).
-	•	Prevent privilege escalation (allowPrivilegeEscalation: false).
-	•	Run containers as non-root users.
-
-6. API Access Isolation
-
-	•	Restrict API server access using network controls (e.g., VPN, private endpoints).
-	•	Configure RBAC to limit API access per user or service account.
-	•	Disable anonymous and unauthenticated access.
-
-7. Multi-Tenancy
-
-	•	Use unique namespaces, Network Policies, and quotas for tenants.
-	•	Use workload identity or separate IAM roles for each tenant.
-	•	Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
+    
+- **Workload Isolation**
+  - Use PSP (e.g., baseline, restricted).
+  - Prevent privilege escalation (allowPrivilegeEscalation: false).
+  - Run containers as non-root users.
+    
+- **API Access Isolation**
+  - Restrict API server access using network controls
+  - Configure RBAC to limit API access per user or service account
+  - Disable anonymous and unauthenticated access
+    
+- **Multi-Tenancy**
+  - Use unique namespaces, Network Policies, and quotas for tenants.
+  - Use workload identity or separate IAM roles for each tenant.
+  - Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
