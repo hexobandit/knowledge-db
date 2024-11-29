@@ -67,7 +67,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     Automation and Tooling
 ```
 
-## Overview of Cloud Native Security 14%
+## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
 - **Cloud**
     - Network access to API server (Control Plane) needs to be only internal. Controlled by network access control list restricted to set of IPs that need administer the cluster
