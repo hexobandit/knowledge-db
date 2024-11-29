@@ -69,6 +69,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
+Cloud > Cluster > Container > Code
 
 - **Cloud**
     - API server
@@ -118,16 +119,16 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
       - Scan for vulnerabilities within code
         
 - **Container**
-      - Use trusted container registries
-      - Image signing and enforcment (e.g., via OPA Gatekeeper)
-      - Scan container images for vulnerabilities
-      - Minimal base images (e.g., distroless or Alpine)
-      - Runtime - Detec anomalies e.g., via Falco
-      - Runtime - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
-      - Runtime - Limit container capabilities (e.g., avoid CAP_SYS_ADMIN)
+  - Use trusted container registries
+  - Image signing and enforcment (e.g., via OPA Gatekeeper)
+  - Scan container images for vulnerabilities
+  - Minimal base images (e.g., distroless or Alpine)
+  - Runtime - Detec anomalies e.g., via Falco
+  - Runtime - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
+  - Runtime - Limit container capabilities (e.g., avoid CAP_SYS_ADMIN)
 
 - **Code**
-      - Use Static Application Security Testing (SAST) tools
+  - Use Static Application Security Testing (SAST) tools
       - Use tools like Dependabot or Snyk to monitor vulnerabilities in dependencies
       - Store secrets securely using encrypted etcd or external vaults via CSI driver
 
@@ -144,9 +145,9 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 - PCI DSS - Payment Card Industry Data Security Standard
 - GDPR - General Data Protection Regulation
 - Tools to Implement and Validate Controls
-  - Infrastructure-as-Code (IaC) Scanning
-  - AWS Security Hub, Azure Defender
-  - Policy Enforcement: OPA (Open Policy Agent), Kyverno, or Gatekeeper
+- Infrastructure-as-Code (IaC) Scanning
+- AWS Security Hub, Azure Defender
+- Policy Enforcement: OPA (Open Policy Agent), Kyverno, or Gatekeeper
 
  ### Isolation Techniques
 
