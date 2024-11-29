@@ -13,6 +13,23 @@ Go to your project folder and run:
     source ./venv/bin/activate
     deactivate
 
+### Poking Around 
+```
+id
+env
+df 
+mount 
+ps -aux 
+cat /etc/mtab
+docker -version
+capsh —print #printCapabilities
+ifconfig | grep inet 
+
+/var/run/secrets/kubernetes.io/serviceaccount/token
+/var/run/secrets/kubernetes.io/serviceaccount/namespace
+/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+```
+
 ### Data Exfiltration via TCP Socket 👀
 ---
 Exfiltrate data over TCP using data encoding. 
