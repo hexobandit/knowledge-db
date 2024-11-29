@@ -7,9 +7,9 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 ```
 **Overview of Cloud Native Security 14%**
 
-    The 4Cs of Cloud Native Security
-    Cloud Provider and Infrastructure Security
-    Controls and Frameworks
+    The 4Cs of Cloud Native Security ✔️
+    Cloud Provider and Infrastructure Security ✔️
+    Controls and Frameworks ✔️
     Isolation Techniques
     Artifact Repository and Image Security
     Workload and Application Code Security
@@ -69,6 +69,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
+
 - **Cloud**
     - API server
       - Ensure internal-only traffic 
@@ -105,9 +106,36 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
               - E.g., Limits the scope of actions kubelets can perform to their own Node object or Pods bound to their node
     - **Securing Apps**
       - Limit the use of hostPath volumes
-      - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
       - Use Pod Security Policies (PSP) or its replacement (e.g., Kyverno or OPA/Gatekeeper)
       - Configure resource requests and limits to avoid resource exhaustion
       - Scan for vulnerabilities within code
 - **Container**
+      - Use trusted container registries
+      - Image signing and enforcment (e.g., via OPA Gatekeeper)
+      - Scan container images for vulnerabilities
+      - Minimal base images (e.g., distroless or Alpine)
+      - Runtime - Detec anomalies e.g., via Falco
+      - Runtime - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
+      - Runtime - Limit container capabilities (e.g., avoid CAP_SYS_ADMIN)
 - **Code**
+      - Use Static Application Security Testing (SAST) tools
+      - Use tools like Dependabot or Snyk to monitor vulnerabilities in dependencies
+      - Store secrets securely using encrypted etcd or external vaults via CSI driver
+
+### Cloud Provider and Infrastructure Security
+- IAM & MFA & least privileges, vaults
+- Private clusters, network segmentation
+- Encryption TLS + at rest for sensitive data
+- Compliance & governance & monitoring
+
+### Controls and Frameworks
+- NIST - Controls with the five pillars: Identify, Protect, Detect, Respond, and Recover
+- CIS - Hardening guides
+- HIPPA - Health Insurance Portability and Accountability Act
+- PCI DSS - Payment Card Industry Data Security Standard
+- GDPR - General Data Protection Regulation
+- Tools to Implement and Validate Controls
+  - Infrastructure-as-Code (IaC) Scanning
+  - AWS Security Hub, Azure Defender
+  - Policy Enforcement: OPA (Open Policy Agent), Kyverno, or Gatekeeper
+ 
