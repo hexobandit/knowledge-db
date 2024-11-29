@@ -77,8 +77,12 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
       - Traffic via ACLs only from the control plane on specified ports
       - Accept connections for services in k8s of type NodePort and LoadBalancer
       - No node should be exposed to internet
-    - K8s access to cloud provider API. Provide the cloud provider access based on least privilege principle.
-    - Access to etcd needs to be limited to the control plane only + TLS + encryption at rest.
+    - Cloud provider API (Allows AKS clusters to provision Azure Load Balancers, Disks, etc.)
+      - Least privilege principle.
+    - etcd
+      - Access limited to the control plane only
+      - Enforce TLS
+      - Enforce Encryption at rest (CSI Drivers for external vaults)
 - **Cluster**
     - Securing Cluster Components
         - Enforce TLS
