@@ -86,23 +86,28 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
       - Enforce TLS
       - Enforce Encryption at rest (CSI Drivers for external vaults)
 - **Cluster**
-    - Securing Cluster Components
+    - **Securing Cluster Components**
         - Use private clusters 
         - Enforce (m)TLS
         - Apply Network Policies for pod-to-pod and pod-to-external traffic
         - Enforce API AuthN (e.g., OIDC) (Rotate and expire service account tokens)
-        - API AuthZ RBAC (verbs (get, create, delete, list) with resources (pods, services, nodes) and can be namespace scoped)
-            - Node Authorisation
-              - kubelets are only allowed to read their own Node objects
-              - kubeletes are only allowed to read pods bound to their node
-            - RBAC Authorisation 
+        - **API AuthZ RBAC**
+            - **RBAC Authorisation**
               - Roles and ClusterRoles
               - RoleBindings and ClusterRoleBindings
-              - Principle of Least Privilege
-            - Node Restrictions (Admission Controller)
+              - Principle of Least Privilege for all users, service accounts, and system components
+            - **Node Authorisation**
+              - Kubelets can only access their own Node object
+              - Kubelets can only access Pods bound to their node
+            - **Node Restrictions (Admission Controller)**
               - Enforces additional validation rules beyond authN and authZ (RBAC)
               - Second layer of validation applied after RBAC authorization (kube native)
               - E.g., Limits the scope of actions kubelets can perform to their own Node object or Pods bound to their node
-    - Securing Apps
+    - **Securing Apps**
+      - Limit the use of hostPath volumes
+      - Avoid running containers as root & non-privileged mode & read-only filesystem, etc.
+      - Use Pod Security Policies (PSP) or its replacement (e.g., Kyverno or OPA/Gatekeeper)
+      - Configure resource requests and limits to avoid resource exhaustion
+      - Scan for vulnerabilities within code
 - **Container**
 - **Code**
