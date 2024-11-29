@@ -74,14 +74,17 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     - API server
       - Ensure internal-only traffic 
       - Use Network ACLs or NSGs to restrict access
-      - Ensure internal-only traffic 
+      - Ensure internal-only traffic
+        
     - Nodes
       - Restrict traffic to nodes from the control plane via specified ports using ACLs
       - Allow access only for NodePort and LoadBalancer services
       - No direct node exposure to the Internet
+        
     - Cloud provider API (Allows AKS clusters to provision Azure Load Balancers, Disks, etc.)
       - Apply Least Privilege Principle for IAM roles, service principals, or credentials
       - Restrict access to the cloud provider API to necessary users and services
+        
     - etcd
       - Access limited to the control plane only
       - Enforce TLS
