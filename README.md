@@ -13,7 +13,7 @@ Go to your project folder and run:
     source ./venv/bin/activate
     deactivate
 
-### Poking Around 
+### Poking Around 👀
 ```
 id
 env
