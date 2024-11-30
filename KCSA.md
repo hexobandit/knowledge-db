@@ -68,7 +68,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 ```
 
 ![image](https://github.com/user-attachments/assets/7320bafd-636c-4113-be74-cf310485858c)
-
+source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
@@ -95,7 +95,7 @@ Cloud > Cluster > Container > Code
       - Enforce Encryption at rest (CSI Drivers for external vaults)
         
 - **Cluster**
-    - **Securing Cluster Components**
+    1. **Securing Cluster Components**
         - Use private clusters 
         - Enforce (m)TLS
         - Apply Network Policies for pod-to-pod and pod-to-external traffic
@@ -115,7 +115,7 @@ Cloud > Cluster > Container > Code
               - Second layer of validation applied after RBAC authorization (kube native)
               - E.g., Limits the scope of actions kubelets can perform to their own Node object or Pods bound to their node
                 
-    - **Securing Apps**
+    2. **Securing Apps**
       - Limit the use of hostPath volumes
       - Use Pod Security Policies (PSP) or its replacement (e.g., Kyverno or OPA/Gatekeeper)
       - Configure resource requests and limits to avoid resource exhaustion
@@ -154,75 +154,96 @@ Cloud > Cluster > Container > Code
 
  ### Isolation Techniques
 
-- **Namespace Isolation**
-  - Use namespaces to logically separate workloads
-  - Enforce RBAC rules scoped to namespaces
+1. **Namespace Isolation**
+   - Use namespaces to logically separate workloads
+   - Enforce RBAC rules scoped to namespaces
     
-- **Network Isolation**
-  - Use Network Policies to restrict pod-to-pod and pod-to-external communication
-  - Isolate clusters with VPCs or subnets
-  - Configure firewalls or Network Security Groups to restrict traffic
+2. **Network Isolation**
+   - Use Network Policies to restrict pod-to-pod and pod-to-external communication
+   - Isolate clusters with VPCs or subnets
+   - Configure firewalls or Network Security Groups to restrict traffic
     
-- **Node Isolation**
-  - Schedule sensitive workloads on dedicated nodes.
-  - Deploy system-critical pods (e.g., kube-system) separately from application workloads
-  - Harden nodes by disabling unused ports and services & PSP & Kernal hardening tools
+3. **Node Isolation**
+   - Schedule sensitive workloads on dedicated nodes.
+   - Deploy system-critical pods (e.g., kube-system) separately from application workloads
+   - Harden nodes by disabling unused ports and services & PSP & Kernal hardening tools
     
-- **Storage Isolation**
-  - Use volume policies to ensure data is mounted securely (e.g., read-only when possible)
-  - Isolate Persistent Volume Claims (PVCs) Like Storage Account
-  - Encrypt storage using cloud provider tools or Kubernetes CSI
+4. **Storage Isolation**
+   - Use volume policies to ensure data is mounted securely (e.g., read-only when possible)
+   - Isolate Persistent Volume Claims (PVCs) Like Storage Account
+   - Encrypt storage using cloud provider tools or Kubernetes CSI
     
-- **Workload Isolation**
-  - Use PSP (e.g., baseline, restricted).
-  - Prevent privilege escalation (allowPrivilegeEscalation: false).
-  - Run containers as non-root users.
+5. **Workload Isolation**
+   - Use PSP (e.g., baseline, restricted).
+   - Prevent privilege escalation (allowPrivilegeEscalation: false).
+   - Run containers as non-root users.
     
-- **API Access Isolation**
-  - Restrict API server access using network controls
-  - Configure RBAC to limit API access per user or service account
-  - Disable anonymous and unauthenticated access
+6. **API Access Isolation**
+   - Restrict API server access using network controls
+   - Configure RBAC to limit API access per user or service account
+   - Disable anonymous and unauthenticated access
     
-- **Multi-Tenancy**
-  - Use unique namespaces, Network Policies, and quotas for tenants.
-  - Use workload identity or separate IAM roles for each tenant.
-  - Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
+7. **Multi-Tenancy**
+   - Use unique namespaces, Network Policies, and quotas for tenants.
+   - Use workload identity or separate IAM roles for each tenant.
+   - Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
 
 ### Artifact Repository and Image Security
-- Artifact Repository
-  - Use private repositories with access controls.
-  - Enable image signing (e.g., Cosign).
-  - Automate vulnerability scans for stored images.
-  - Enforce retention policies and encrypt storage.
+1. Artifact Repository
+   - Use private repositories with access controls.
+   - Enable image signing (e.g., Cosign).
+   - Automate vulnerability scans for stored images.
+   - Enforce retention policies and encrypt storage.
     
-- Image Security
-  - Use minimal, updated base images.
-  - Avoid sensitive data in images.
-  - Set USER non-root in Dockerfiles.
+2. Image Security
+   - Use minimal, updated base images.
+   - Avoid sensitive data in images.
+   - Set USER non-root in Dockerfiles.
     
-- CI/CD & Deployment
-  - Scan images in CI/CD pipelines.
-  - Enforce signed and trusted images in production.
-  - Use admission controllers to validate image policies.
+3. CI/CD & Deployment
+   - Scan images in CI/CD pipelines.
+   - Enforce signed and trusted images in production.
+   - Use admission controllers to validate image policies.
 
 ### Workload and Application Code Security
-- Workload Security
-  - Use Pod Security Standards (e.g., restricted profile).
-  - Enforce resource limits (CPU and memory) for containers.
-  - Set allowPrivilegeEscalation=false and runAsNonRoot=true.
-  - Isolate sensitive workloads using namespaces and node taints.
+1. Workload Security
+   - Use Pod Security Standards (e.g., restricted profile).
+   - Enforce resource limits (CPU and memory) for containers.
+   - Set ```allowPrivilegeEscalation=false``` and ```runAsNonRoot=true```.
+   - Isolate sensitive workloads using namespaces and node taints.
     
-- Application Code Security
-  - Perform regular static and dynamic code analysis.
-  - Avoid hardcoding secrets; use secret management tools like vaults
-  - Validate all input and sanitize user data.
-  - Use secure coding practices (e.g., OWASP Top 10).
+2. Application Code Security
+   - Perform regular static and dynamic code analysis.
+   - Avoid hardcoding secrets; use secret management tools like vaults
+   - Validate all input and sanitize user data.
+   - Use secure coding practices (e.g., OWASP Top 10).
     
-- CI/CD & Deployment
-  - Scan dependencies for vulnerabilities (e.g., Snyk, Dependabot).
-  - Automate security tests in CI/CD pipelines.
-  - Enforce only validated code and dependencies in production.
+3. CI/CD & Deployment
+   - Scan dependencies for vulnerabilities (e.g., Snyk, Dependabot).
+   - Automate security tests in CI/CD pipelines.
+   - Enforce only validated code and dependencies in production.
  
   
 ## Kubernetes Cluster Component Security 22% 🎳
 ### API Server
+The Kubernetes API server validates and configures data for the api objects which include pods, services, replicationcontrollers, and others. The API Server services REST operations and provides the frontend to the cluster's shared state through which all other components interact.
+
+1. Access Controls
+   - Enable RBAC and restrict user permissions.
+   - Use authentication mechanisms (e.g., certificates, OIDC).
+   - Disable anonymous and unauthenticated access.
+
+2. Network Security
+   - Restrict API server access using firewalls or private endpoints.
+   - Enforce HTTPS (TLS 1.2 or higher) for all connections.
+   - Limit CIDR ranges allowed to access the API server.
+
+3. Configuration Hardening
+   - Enable audit logging for all API requests.
+   - Use `--secure-port` and disable `--insecure-port`.
+   - Set `--profiling=false` and `--enable-admission-plugins` with security-focused plugins (e.g., `PodSecurity`).
+
+4. Monitoring and Threat Detection
+   - Monitor API server logs for anomalies.
+   - Use tools like Falco to detect unauthorized API usage.
+   - Rotate and revoke compromised certificates immediately.
