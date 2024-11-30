@@ -12,7 +12,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     Controls and Frameworks ✔️
     Isolation Techniques ✔️
     Artifact Repository and Image Security ✔️
-    Workload and Application Code Security
+    Workload and Application Code Security ✔️
 
 **Kubernetes Cluster Component Security 22%**
 
@@ -66,6 +66,9 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     Supply Chain Compliance
     Automation and Tooling
 ```
+
+![image](https://github.com/user-attachments/assets/7320bafd-636c-4113-be74-cf310485858c)
+
 
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
@@ -221,3 +224,5 @@ Cloud > Cluster > Container > Code
   - Enforce only validated code and dependencies in production.
  
   
+## Kubernetes Cluster Component Security 22% 🎳
+### API Server
