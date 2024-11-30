@@ -18,8 +18,8 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 
     API Server ✔️
     Controller Manager ✔️
-    Scheduler
-    Kubelet
+    Scheduler ✔️ 
+    Kubelet ✔️
     Container Runtime
     KubeProxy
     Pod
