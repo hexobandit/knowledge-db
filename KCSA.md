@@ -11,7 +11,7 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     Cloud Provider and Infrastructure Security ✔️
     Controls and Frameworks ✔️
     Isolation Techniques ✔️
-    Artifact Repository and Image Security
+    Artifact Repository and Image Security ✔️
     Workload and Application Code Security
 
 **Kubernetes Cluster Component Security 22%**
@@ -166,9 +166,9 @@ Cloud > Cluster > Container > Code
   - Harden nodes by disabling unused ports and services & PSP & Kernal hardening tools
     
 - **Storage Isolation**
-  - Use volume policies to ensure data is mounted securely (e.g., read-only when possible).
-  - Isolate Persistent Volume Claims (PVCs) Like Storage Account by namespace.
-  - Encrypt storage using cloud provider tools or Kubernetes CSI.
+  - Use volume policies to ensure data is mounted securely (e.g., read-only when possible)
+  - Isolate Persistent Volume Claims (PVCs) Like Storage Account
+  - Encrypt storage using cloud provider tools or Kubernetes CSI
     
 - **Workload Isolation**
   - Use PSP (e.g., baseline, restricted).
@@ -184,3 +184,40 @@ Cloud > Cluster > Container > Code
   - Use unique namespaces, Network Policies, and quotas for tenants.
   - Use workload identity or separate IAM roles for each tenant.
   - Enforce pod-level security boundaries with sandboxing (e.g., gVisor, Kata).
+
+### Artifact Repository and Image Security
+- Artifact Repository
+  - Use private repositories with access controls.
+  - Enable image signing (e.g., Cosign).
+  - Automate vulnerability scans for stored images.
+  - Enforce retention policies and encrypt storage.
+    
+- Image Security
+  - Use minimal, updated base images.
+  - Avoid sensitive data in images.
+  - Set USER non-root in Dockerfiles.
+    
+- CI/CD & Deployment
+  - Scan images in CI/CD pipelines.
+  - Enforce signed and trusted images in production.
+  - Use admission controllers to validate image policies.
+
+### Workload and Application Code Security
+- Workload Security
+  - Use Pod Security Standards (e.g., restricted profile).
+  - Enforce resource limits (CPU and memory) for containers.
+  - Set allowPrivilegeEscalation=false and runAsNonRoot=true.
+  - Isolate sensitive workloads using namespaces and node taints.
+    
+- Application Code Security
+  - Perform regular static and dynamic code analysis.
+  - Avoid hardcoding secrets; use secret management tools like vaults
+  - Validate all input and sanitize user data.
+  - Use secure coding practices (e.g., OWASP Top 10).
+    
+- CI/CD & Deployment
+  - Scan dependencies for vulnerabilities (e.g., Snyk, Dependabot).
+  - Automate security tests in CI/CD pipelines.
+  - Enforce only validated code and dependencies in production.
+ 
+  
