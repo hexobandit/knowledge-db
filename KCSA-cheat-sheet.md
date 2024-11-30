@@ -53,9 +53,10 @@ Assigns pods to the most appropriate node based on resource availability and con
 - Disable profiling endpoints.
 
 ### Kubelet
-Runs on each node and ensures that containers in pods are running as specified. Communicates with the container runtime to start, stop, and monitor containers.
+Runs on each node and ensures that containers in pods are running as specified. Communicates with the container runtime to start, stop, and monitor containers. Ensures containers in pods are running but **doesn’t assign pods to nodes**.
 - Require authentication and disable anonymous access.
 - Enforce secure pod configurations (`runAsNonRoot=true`).
+- The `--anonymous-auth=false` flag disables anonymous access to the Kubelet API, ensuring that only authenticated requests are allowed.
 
 ### Container Runtime
 The software that runs containers, such as Docker, containerd, or CRI-O. Works with the Kubelet to manage container lifecycles.
@@ -192,3 +193,25 @@ Integrates persistent storage with pods using Persistent Volumes (PVs) and Persi
 
 ### Automation and Tooling
 - Use Falco, Trivy, and kube-bench for automation and continuous scanning.
+
+## Some Random Questions
+- Which command can be used to list all ServiceAccounts in the 'dev' namespace?
+   - `kubectl get sa -n dev`, `kubectl get serviceaccounts --namespace=dev`
+- Which command lists all processes listening on TCP and UDP ports?
+   - `netstat -tuln` or `ss -tuln`
+- Which Kubernetes resource can be used to set up a Pod with multiple containers that share the same network namespace
+  - Pod
+- Which field in a container's securityContext prevents processes from gaining elevated privileges?
+  - `allowPrivilegeEscalation: false`
+- Why is it recommended to use Kubernetes network policies?
+  - To enforce network segmentation and limit pod communication
+- Which command is used to generate a private key for a new Kubernetes user?
+  - `openssl genrsa -out user.key 2048`
+- Which STRIDE category is primarily concerned with availability?
+  - `Denial of Service`
+Which folders on a client machine are sensitive when accessing Kubernetes clusters?
+  - `~/.kube/config` and `~/.ssh/`
+How can you list all resources in a namespace?
+  - `kubectl get all --namespace=<namespace>`
+Which command can you use to check the version of the kube-apiserver?
+  - `kubectl version`
