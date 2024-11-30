@@ -253,3 +253,35 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 
 - What is the purpose of the 'kubeadm' tool?
    - To bootstrap Kubernetes clusters
+
+- Why is setting resource limits and requests for Kubernetes pods important to prevent internal Denial of Service scenarios?
+   - To prevent a single pod from consuming excessive resources, impacting overall cluster stability
+
+- What is the primary security advantage of using client certificate authentication for Kubernetes API server?
+   - To provide a secure method of authentication that minimizes the risk of credentials theft
+ 
+- Which of the following is a key benefit of implementing a Service Mesh in a cloud-native application architecture from a security perspective?
+   - Enhanced traffic encryption and fine-grained access control
+
+- What is a key security measure for the Kubernetes Controller Manager to prevent unauthorized control ofcluster components?
+   - Enabling Role-Based Access Control (RBAC) for the Controller Manager's operations
+
+- Why is it important to enable and configure Kubelet client certificate rotation in a Kubernetes cluster?
+   - To enhance security through regular updating of authentication credentialsCorrect Answer: D Explanation/Reference: 
+
+- What is the role of a Certificate Authority (CA) in the PKI setup of a Kubernetes cluster?
+   - To issue and manage digital certificates for secure communication within the cluster
+ 
+- In Kubernetes, why is it important to configure Pod Security Admissions to audit mode?
+   - To evaluate the impact of proposed security policies without enforcing them
+
+- Why is pod isolation crucial in a multi-tenant Kubernetes environment?
+   - To prevent a compromised or malicious pod in one tenant environment from affecting others
+
+- Which security practice is most effective in preventing unauthorized or compromised container images frombeing deployed in a Kubernetes environment?
+   - Enforcing image scanning and vulnerability assessment. Implementing CI/CD pipelines is a best practice for efficient software delivery but does not inherently include measures toprevent the deployment of compromised container images.
+ 
+- Which component of the 4Cs of Cloud Native Security is directly responsible for implementing securitypolicies and controls within the application code to prevent vulnerabilities?
+   - Code Security
+ 
+- 
