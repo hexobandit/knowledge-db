@@ -35,54 +35,65 @@ source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 
 ## Kubernetes Cluster Component Security (22%) 🛰️
 ### API Server
+Acts as the central management interface for Kubernetes. Validates and processes REST API requests, serving as the frontend for the cluster. Coordinates communication between all components.
 - Enable RBAC, disable anonymous access.
 - Restrict access to private networks.
 - Use `--secure-port` and audit logging.
 
 ### Controller Manager
+Runs control loops (e.g., node, deployment, replication controllers) to reconcile the cluster’s desired state with its actual state.
 - Enable `--use-service-account-credentials`.
 - Disable unused controllers.
 - Use `--profiling=false`.
 
 ### Scheduler
+Assigns pods to the most appropriate node based on resource availability and constraints like affinity/anti-affinity rules.
 - Restrict access with secure kubeconfig.
 - Enable leader election.
 - Disable profiling endpoints.
 
 ### Kubelet
+Runs on each node and ensures that containers in pods are running as specified. Communicates with the container runtime to start, stop, and monitor containers.
 - Require authentication and disable anonymous access.
 - Enforce secure pod configurations (`runAsNonRoot=true`).
 
 ### Container Runtime
+The software that runs containers, such as Docker, containerd, or CRI-O. Works with the Kubelet to manage container lifecycles.
 - Use non-root containers and minimal images.
 - Scan for runtime vulnerabilities.
 - Restrict runtime privileges.
 
 ### KubeProxy
+Manages network rules to route and load balance traffic to pods. Configures networking on nodes for pod communication.
 - Use secure API communication.
 - Restrict node traffic with firewalls.
 - Monitor logs for unusual patterns.
 
 ### Pod
+The smallest deployable unit in Kubernetes, encapsulating one or more containers. Runs on a node and shares resources like network and storage.
 - Enforce Pod Security Standards (`restricted` profile).
 - Disable privilege escalation.
 - Use resource limits (`CPU`, `memory`).
 
 ### Etcd
+A distributed key-value store that stores all cluster configuration and state data. Acts as the “brain” of Kubernetes, backing up its entire state.
 - Encrypt data at rest and enforce TLS.
 - Limit access with firewalls.
 - Back up regularly and test restores.
 
 ### Container Networking
+Provides communication between pods and external services. Implements networking via CNI plugins like Calico or Cilium.
 - Apply Network Policies for pod-to-pod and external traffic.
 - Use secure CNI plugins with mTLS.
 
 ### Client Security
+Refers to securing access to Kubernetes via tools like kubectl or API calls. Includes proper use of kubeconfig files, RBAC, and certificate rotation.
 - Use kubeconfig with unique credentials per user.
 - Rotate tokens and certificates periodically.
 - Avoid sharing kubeconfigs.
 
 ### Storage
+Integrates persistent storage with pods using Persistent Volumes (PVs) and Persistent Volume Claims (PVCs). Supports dynamic and static provisioning of storage from providers like Azure, AWS, or GCP.
 - Use CSI drivers and encrypt volumes.
 - Limit PVC access to namespaces.
 - Monitor for unauthorized access.
