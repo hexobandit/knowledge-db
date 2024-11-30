@@ -127,6 +127,8 @@ source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 
 ### Denial of Service
 - Enforce resource limits on pods to prevent overuse.
+- LimitRange - CPU and memory limits per pod or container
+- ResourceQuota - CPU and memory limits per namespace
 
 ### Malicious Code Execution
 - Use vulnerability scanning tools and enforce non-root containers.
