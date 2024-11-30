@@ -252,23 +252,23 @@ The Kubernetes API server validates and configures data for the api objects whic
 The Kubernetes controller manager is a daemon that embeds the core control loops shipped with Kubernetes. In applications of robotics and automation, a control loop is a non-terminating loop that regulates the state of the system. In Kubernetes, a controller is a control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state. Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
 
 1.	Access Controls
-   - Use certificates to authenticate the Controller Manager to the API Server.
-   - Limit access to the Kubernetes API server with RBAC roles tailored to the controllers.
-   - Disable unnecessary controllers using the --controllers flag.
+    - Use certificates to authenticate the Controller Manager to the API Server.
+    - Limit access to the Kubernetes API server with RBAC roles tailored to the controllers.
+    - Disable unnecessary controllers using the --controllers flag.
      
 2.	Network Security
-   - Run the Controller Manager on secure, internal networks or private nodes.
-   - Enforce HTTPS for communication between controllers and the API server.
-   - Restrict access to the Controller Manager process using firewalls.
+    - Run the Controller Manager on secure, internal networks or private nodes.
+    - Enforce HTTPS for communication between controllers and the API server.
+    - Restrict access to the Controller Manager process using firewalls.
      
 3. Configuration Hardening
-   - Set ```--use-service-account-credentials=true``` to avoid using root credentials.
-   - Limit the Controller Manager’s namespace-scoped operations with appropriate permissions.
-   - Configure ```--profiling=false``` to disable profiling endpoints.
-   - Enable leader election ```(--leader-elect=true)``` for high availability and to avoid split-brain scenarios.
+    - Set ```--use-service-account-credentials=true``` to avoid using root credentials.
+    - Limit the Controller Manager’s namespace-scoped operations with appropriate permissions.
+    - Configure ```--profiling=false``` to disable profiling endpoints.
+    - Enable leader election ```(--leader-elect=true)``` for high availability and to avoid split-brain scenarios.
      
 4.	Monitoring and Threat Detection
-   - Enable and monitor Controller Manager logs for anomalies.
-   - Track resource reconciliation events to identify potential misconfigurations.
-   - Audit API calls made by the Controller Manager using API server logs.
+    - Enable and monitor Controller Manager logs for anomalies.
+    - Track resource reconciliation events to identify potential misconfigurations.
+    - Audit API calls made by the Controller Manager using API server logs.
 
