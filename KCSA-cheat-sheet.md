@@ -1,7 +1,9 @@
 # Kubernetes Certified Security Associate (KCSA) Cheat Sheet
 
-## Overview of Cloud Native Security (14%) 🛰️
+![image](https://github.com/user-attachments/assets/7320bafd-636c-4113-be74-cf310485858c)
+source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 
+## Overview of Cloud Native Security (14%) 🛰️
 ### The 4Cs of Cloud Native Security
 - **Code, Container, Cluster, Cloud**: Security layers to address vulnerabilities.
 - **Key Practice**: Secure each layer independently and collectively.
@@ -32,7 +34,6 @@
 
 
 ## Kubernetes Cluster Component Security (22%) 🛰️
-
 ### API Server
 - Enable RBAC, disable anonymous access.
 - Restrict access to private networks.
@@ -88,7 +89,6 @@
 
 
 ## Kubernetes Security Fundamentals (22%) 🛰️
-
 ### Pod Security Standards
 - Apply Baseline, Restricted, or Privileged profiles.
 - Enforce policies using Pod Security Admission.
@@ -118,10 +118,9 @@
 
 
 ## Kubernetes Threat Model (16%) 🛰️
-
 ### Kubernetes Trust Boundaries and Data Flow
 - Understand API server, nodes, and pod interactions.
-- Identify and secure trust boundaries.
+- Trust boundaries (Internet, API Server, Master Components (kube-controller-manager, cloud-controller-manager), Master Data (etcd), Worker (kubelet, kubeproxy), Container)
 
 ### Persistence
 - Protect cluster data by securing etcd and RBAC.
@@ -145,7 +144,6 @@
 ---
 
 ## Platform Security (16%) 🛰️
-
 ### Supply Chain Security
 - Use signed images and scan for vulnerabilities in CI/CD pipelines.
 
@@ -170,7 +168,6 @@
 
 
 ## Compliance and Security Frameworks (10%) 🛰️
-
 ### Compliance Frameworks
 - Implement CIS Benchmarks, PCI DSS, HIPAA, or GDPR requirements.
 
