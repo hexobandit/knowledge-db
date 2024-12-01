@@ -194,6 +194,10 @@ Integrates persistent storage with pods using Persistent Volumes (PVs) and Persi
 ### Automation and Tooling
 - Use Falco, Trivy, and kube-bench for automation and continuous scanning.
 
+
+
+
+
 ## Some Random Questions 🥳👍
 https://kubernetes-security-kcsa-mock.vercel.app 👈
 
@@ -284,4 +288,16 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 - Which component of the 4Cs of Cloud Native Security is directly responsible for implementing securitypolicies and controls within the application code to prevent vulnerabilities?
    - Code Security
  
-- 
+=====
+
+- runAsUser: 0 within kind: Pod is what OWASP top 10?
+   - Insecure Workload Configuration
+
+- What is the outcome of failing of pod kube-controller?
+
+- How does two container within same pod comunicates outside?
+
+- How do i restric elevation of privilages on namespace?
+
+- Api server provides server certificate or root certificate to its clients?
+   - The Kubernetes API server provides a server certificate to its clients to establish a secure connection (via TLS). This server certificate is signed by a Certificate Authority (CA), and the CA’s root certificate is distributed to the clients for verification.
