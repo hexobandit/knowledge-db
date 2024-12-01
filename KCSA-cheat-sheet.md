@@ -327,4 +327,4 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 - Which framework describes self hosted and cloud hosted benchmarks?
 
 - Securing each Kubernetes component 👈
-   TODO via my app : defenseModeling
+   TODO via my app : defenseModeling : https://github.com/hexobandit/knowledge-db/blob/main/KCSA-study-guide.md#kubernetes-cluster-component-security-22-
