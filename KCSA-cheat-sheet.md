@@ -32,10 +32,10 @@ source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 - Enforce Pod Security Standards (e.g., non-root users).
 - Secure secrets with external tools (e.g., Vault).
 - https://owasp.org/www-project-kubernetes-top-ten/2022/en/src/K01-insecure-workload-configurations
--    hostPID
--    hostIPC
--    hostNetwork
--    secureContext
+   - hostPID
+   - hostIPC
+   - hostNetwork
+   - secureContext
 
 
 ## Kubernetes Cluster Component Security (22%) 🛰️
@@ -203,7 +203,7 @@ Integrates persistent storage with pods using Persistent Volumes (PVs) and Persi
 
 
 
-## Some Random Questions 🥳👍
+## Sample Random Questions 🥳👍
 https://kubernetes-security-kcsa-mock.vercel.app 👈
 
 - Which command can be used to list all ServiceAccounts in the 'dev' namespace?
@@ -224,7 +224,7 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 - Which command is used to generate a private key for a new Kubernetes user?
   - `openssl genrsa -out user.key 2048`
 
-- Which STRIDE category is primarily concerned with availability?
+- Which STRIDE category is primarily concerned with availability? <<
   - `Denial of Service`
 
 - Which folders on a client machine are sensitive when accessing Kubernetes clusters?
@@ -260,7 +260,7 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 - Which flags should be set to 'false' to minimize the attack surface on the Kubernetes scheduler?
    - `--port` and `--address` and `--profiling=false`
 
-- What is the purpose of the 'kubeadm' tool?
+- What is the purpose of the 'kubeadm' tool? 
    - To bootstrap Kubernetes clusters
 
 - Why is setting resource limits and requests for Kubernetes pods important to prevent internal Denial of Service scenarios?
@@ -306,3 +306,24 @@ https://kubernetes-security-kcsa-mock.vercel.app 👈
 
 - Api server provides server certificate or root certificate to its clients?
    - The Kubernetes API server provides a server certificate to its clients to establish a secure connection (via TLS). This server certificate is signed by a Certificate Authority (CA), and the CA’s root certificate is distributed to the clients for verification.
+
+- How does pod communicates with node? If hacker would want to observe all communication? What he would leverage on? hostNetwork or hostIPC?
+
+- Isolation techniques in a multi-tenant Kubernetes environment?
+
+- etcd can communicate with what other resources within kubernetes?
+   - The API server is the only component that directly interacts with etcd.
+ 
+- gVisor vs Firecracker
+   - gVisor = Application-level sandbox = provides secure isolation for containerized applications by implementing a user-space kernel.
+   - Firecracker = Virtual machine monitor (VMM)= Designed to run lightweight virtual machines (microVMs) for secure and isolated workloads.
+ 
+- How to enable appArmor
+   - Enable AppArmor on the Node
+   - Create an AppArmor Profile
+   - Apply AppArmor Profile to a Pod
+   - Verify AppArmor is Applied
+
+- Which framework describes self hosted and cloud hosted benchmarks?
+
+- 
