@@ -31,6 +31,11 @@ source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 - Scan code and dependencies for vulnerabilities.
 - Enforce Pod Security Standards (e.g., non-root users).
 - Secure secrets with external tools (e.g., Vault).
+- https://owasp.org/www-project-kubernetes-top-ten/2022/en/src/K01-insecure-workload-configurations
+-    hostPID
+-    hostIPC
+-    hostNetwork
+-    secureContext
 
 
 ## Kubernetes Cluster Component Security (22%) 🛰️
