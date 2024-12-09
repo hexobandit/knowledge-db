@@ -307,3 +307,9 @@ The Kubelet runs on each node, ensuring containers are running in pods as specif
 
 4.	Monitoring
     - Monitor Kubelet logs for unauthorized requests.
+
+
+
+## Kubernetes Threat Model
+
+![image](https://github.com/user-attachments/assets/a5f742e5-3e2e-4f96-9bcb-e18842b092bf)
