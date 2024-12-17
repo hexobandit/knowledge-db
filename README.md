@@ -20,6 +20,7 @@ Go to your project folder and run:
 ### Poking Around 👀
 ```
 id
+uname -a
 env
 df 
 mount 
