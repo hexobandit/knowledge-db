@@ -28,7 +28,8 @@ ps -aux
 cat /etc/mtab
 docker -version
 capsh —print #printCapabilities
-ifconfig | grep inet 
+ifconfig | grep inet
+cat /etc/shadow
 
 /var/run/secrets/kubernetes.io/serviceaccount/token
 /var/run/secrets/kubernetes.io/serviceaccount/namespace
