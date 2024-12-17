@@ -2,10 +2,11 @@
 ## Installation
 
 1. Install Docker
-2. Install Kind
+2. Install Kubectl
+3. Install Kind
   - On Win `choco install kind`
   - On Mac `brew install kind`
-3. Verify kind installation `kind version`
+4. Verify kind installation `kind version`
 
 
 ## First Steps
