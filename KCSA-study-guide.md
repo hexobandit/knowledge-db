@@ -225,6 +225,33 @@ Cloud > Cluster > Container > Code
  
   
 ## Kubernetes Cluster Component Security 22% 🎳
+
+Here is an example illustrating the system flow starting with a kubectl apply command and ending with container startup on the node:
+
+```mermaid
+%%{init:{"theme":"neutral"}}%%
+sequenceDiagram
+    actor me
+    participant apiSrv as control plane<br><br>api-server
+    participant etcd as control plane<br><br>etcd datastore
+    participant cntrlMgr as control plane<br><br>controller<br>manager
+    participant sched as control plane<br><br>scheduler
+    participant kubelet as node<br><br>kubelet
+    participant container as node<br><br>container<br>runtime
+    me->>apiSrv: 1. kubectl create -f pod.yaml
+    apiSrv-->>etcd: 2. save new state
+    cntrlMgr->>apiSrv: 3. check for changes
+    sched->>apiSrv: 4. watch for unassigned pods(s)
+    apiSrv->>sched: 5. notify about pod w nodename=" "
+    sched->>apiSrv: 6. assign pod to node
+    apiSrv-->>etcd: 7. save new state
+    kubelet->>apiSrv: 8. look for newly assigned pod(s)
+    apiSrv->>kubelet: 9. bind pod to node
+    kubelet->>container: 10. start container
+    kubelet->>apiSrv: 11. update pod status
+    apiSrv-->>etcd: 12. save new state
+```
+
 ### API Server
 The Kubernetes API Server is the control plane’s front end, handling REST requests for cluster resources (pods, nodes, services, etc.) and maintaining the cluster’s state.
 
@@ -313,3 +340,7 @@ The Kubelet runs on each node, ensuring containers are running in pods as specif
 ## Kubernetes Threat Model
 
 ![image](https://github.com/user-attachments/assets/a5f742e5-3e2e-4f96-9bcb-e18842b092bf)
+
+[Tutorial: Attacking and Defending Kube... Brad Geesaman, Jimmy Mesta, Tabitha Sable & Peter Benjamin](https://www.youtube.com/watch?v=UdMFTdeAL1s)
+
+  - https://securekubernetes.com/scenario_1_attack/
