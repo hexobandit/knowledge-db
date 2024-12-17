@@ -1,4 +1,4 @@
-# Local Kubernetes Kind Cluster
+# Local Kubernetes Kind Cluster 💠
 ## Installation
 
 1. Install Docker
@@ -19,7 +19,7 @@ See what`s in there
 
     kubectl get pods -A
 
-Excected results.. this means YAY!
+Excected results.. this means YAY! 🔆
 
     kube-system             coredns-7db6d8ff4d-c4tsh                              1/1     Running            9 (19m ago)    154d
     kube-system             coredns-7db6d8ff4d-rjvkx                              1/1     Running            9 (19m ago)    154d
@@ -32,6 +32,26 @@ Excected results.. this means YAY!
     local-path-storage      local-path-provisioner-988d74bc-dw2sd                 1/1     Running            17 (18m ago)   154d
 
 ## Playing Around
+
+Deploy simple pod
+
+    kubectl run nginx1 -n open --image=nginx:latest
+
+Deploy simple pod via YAML
+
+    kubectl apply -f pod-config.yaml
+
+Exec into the container
+
+    kubectl exec --stdin --tty nginx1 -n open -- /bin/sh 
+    kubectl exec --stdin --tty nginx1 -n open -- /bin/bash
+
+And things to do inside the container
+
+  
+
+
+## More Than One Cluster?
 See all existting clusters
 
     kind get clusters
