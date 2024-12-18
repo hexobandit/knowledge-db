@@ -19,6 +19,20 @@
     helm upgrade --install kubescape kubescape/kubescape-operator -n kubescape --create-namespace --set clusterName=kind-kindopa --set capabilities.continuousScan=enable
     kubectl get pods -n kubescape
 
+Expected results:
+    ```
+    kubescape               kubescape-5587d4fb4f-cqtkp                          1/1     Running             0              92s
+    kubescape               kubevuln-8784f7575-fsx8n                            0/1     Running             0              92s
+    kubescape               node-agent-vnj6x                                    0/1     Running             0              93s
+    kubescape               operator-688fd945fb-pzkmp                           0/1     ContainerCreating   0              92s
+    kubescape               storage-6df8cc57d5-vxjw5                            0/1     ContainerCreating   0              92s
+    ```
+
+Poking around
+
+    kubectl get vulnerabilitymanifestsummaries -A
+    kubectl get vulnerabilitymanifests -A
+
 # Running the Kubescape 
 
     kubescape scan
