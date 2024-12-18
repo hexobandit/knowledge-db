@@ -59,4 +59,4 @@ Powershell
 
 Bash
 
-    curl https://something.com/psscript.ps1 | sh
+    curl https://something.com/bashscript.sh | sh
