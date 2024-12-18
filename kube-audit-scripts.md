@@ -69,3 +69,47 @@ Seccomp: filtering
 Blocked Syscalls (16):
         SYSLOG SETSID VHANGUP PIVOT_ROOT ACCT SETTIMEOFDAY SWAPON SWAPOFF REBOOT SETHOSTNAME SETDOMAINNAME INIT_MODULE DELETE_MODULE FANOTIFY_INIT OPEN_BY_HANDLE_AT FINIT_MODULE
 ```
+
+## Indentify ServiceAccounts in use
+
+    kubectl get pods -A -o custom-columns="NAMESPACE:.metadata.namespace, NAME:.metadata.name, SERVIECACCOUNT:.spec.serviceAccountName"
+
+### Results:
+
+```
+NAMESPACE                NAME                                                SERVIECACCOUNT
+artifact-attestations   policy-controller-webhook-57fc859f6f-zvz4d          policy-controller-webhook
+flux-system             helm-controller-76dff45854-llb87                    helm-controller
+flux-system             kustomize-controller-6bc5d5b96-8p2qm                kustomize-controller
+flux-system             notification-controller-7f5cd7fdb8-stcrn            notification-controller
+flux-system             source-controller-54c89dcbf6-bpv2c                  source-controller
+gatekeeper-system       gatekeeper-audit-694f8c48cf-59wn9                   gatekeeper-admin
+gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-klxw9      gatekeeper-admin
+gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-pp6w8      gatekeeper-admin
+gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-rrd7f      gatekeeper-admin
+kube-system             coredns-7db6d8ff4d-c4tsh                            coredns
+kube-system             coredns-7db6d8ff4d-rjvkx                            coredns
+kube-system             etcd-kindopa-control-plane                          <none>
+kube-system             kindnet-tsxw2                                       kindnet
+kube-system             kube-apiserver-kindopa-control-plane                <none>
+kube-system             kube-controller-manager-kindopa-control-plane       <none>
+kube-system             kube-proxy-ss7nx                                    kube-proxy
+kube-system             kube-scheduler-kindopa-control-plane                <none>
+kubescape               kubescape-5587d4fb4f-cqtkp                          kubescape
+kubescape               kubevuln-8784f7575-fsx8n                            kubevuln
+kubescape               node-agent-vnj6x                                    node-agent
+kubescape               operator-688fd945fb-pzkmp                           operator
+kubescape               storage-6df8cc57d5-vxjw5                            storage
+local-path-storage      local-path-provisioner-988d74bc-dw2sd               local-path-provisioner-service-account
+mutating                nginx-flux-mutated-6d8cf9d8bc-zs9lf                 default
+open                    claims-ai-csv                                       default
+open                    nginx-flux-dockerhub-567844c944-hk6d6               default
+open                    nginx1                                              default
+rest-attested           nginx-signed-chainguard                             default
+```
+
+Than check ServiceAccount Bindings
+
+    kubectl get clusterrolebindings -o yaml
+
+    tobecontinued
