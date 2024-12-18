@@ -93,6 +93,15 @@ Error from server (Forbidden): daemonsets.apps is forbidden: User "system:servic
 Error from server (Forbidden): deployments.apps is forbidden: User "system:serviceaccount:open:default" cannot list resource "deployments" in API group "apps" in the namespace "open"
 ```
 
+By default, kubectl will attempt to use the default service account in /var/run/secrets/kubernetes.io/serviceaccount
+
+Another fun way to see what you can do:
+
+    kubectl auth can-i create pods
+
+
+
+
 
 ## More Than One Cluster?
 See all existting clusters
