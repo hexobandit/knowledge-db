@@ -33,6 +33,18 @@ Poking around
     kubectl get vulnerabilitymanifestsummaries -A
     kubectl get vulnerabilitymanifests -A
 
+
+Which should get you something like:
+```
+kubectl get vulnerabilitymanifests -A
+NAMESPACE   NAME                                                                        CREATED AT
+kubescape   ghcr.io-fluxcd-notification-controller-v1.3.0-f0c3d6                        2024-12-18T15:05:57Z
+```
+
+And to actually view results (detailed manifest) do:
+
+    kubectl describe vulnerabilitymanifest ghcr.io-fluxcd-notification-controller-v1.3.0-f0c3d6 -n kubescape
+
 # Running the Kubescape 
 
     kubescape scan
