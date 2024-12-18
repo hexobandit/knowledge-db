@@ -7,6 +7,10 @@
 
     curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
 
+## Mac
+
+    brew install kubescape
+
 # Running the Kubescape 
 
     kubescape scan
