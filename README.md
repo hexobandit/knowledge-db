@@ -51,7 +51,7 @@ Exfiltrate data over TCP using data encoding. 
 - unzip
    - ```tar xvf task4-creds.tar```
 
-### Cool But Insecure Way To Execute Scripts
+### Cool But Insecure Way To Execute Scripts 💩
 ---
 Powershell
 
