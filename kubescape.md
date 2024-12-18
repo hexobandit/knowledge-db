@@ -11,7 +11,8 @@
 
     brew install kubescape
 
-Into Cluster (change `clusterName=kind-kindopa`)
+## Into Cluster 
+(change `clusterName=kind-kindopa`)
 
     helm repo add kubescape https://kubescape.github.io/helm-charts/
     helm repo update
