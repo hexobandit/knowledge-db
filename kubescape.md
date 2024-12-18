@@ -11,6 +11,14 @@
 
     brew install kubescape
 
+Into CLuster
+
+    helm repo add kubescape https://kubescape.github.io/helm-charts/
+    helm repo update
+
+    helm upgrade --install kubescape kubescape/kubescape-operator -n kubescape --create-namespace --set clusterName=`kubectl config current-context` --set capabilities.continuousScan=enable
+
+
 # Running the Kubescape 
 
     kubescape scan
