@@ -1,53 +1,21 @@
-# Kubescape Installation 📡
-## Windows
+# Kubescape 📡
+## Installation 
+
+Windows
 
     choco install kubescape
 
-## Bash
+Bash
 
     curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
 
-## Mac
+Mac
 
     brew install kubescape
 
-## Into Cluster 
-(change `clusterName=kind-kindopa`)
+## Running the Kubescape 
 
-    helm repo add kubescape https://kubescape.github.io/helm-charts/
-    helm repo update
-    helm upgrade --install kubescape kubescape/kubescape-operator -n kubescape --create-namespace --set clusterName=kind-kindopa --set capabilities.continuousScan=enable
-    kubectl get pods -n kubescape
-
-Expected results:
-```
-kubescape               kubescape-5587d4fb4f-cqtkp                          1/1     Running             0              92s
-kubescape               kubevuln-8784f7575-fsx8n                            0/1     Running             0              92s
-kubescape               node-agent-vnj6x                                    0/1     Running             0              93s
-kubescape               operator-688fd945fb-pzkmp                           0/1     ContainerCreating   0              92s
-kubescape               storage-6df8cc57d5-vxjw5                            0/1     ContainerCreating   0              92s
-```
-
-Poking around
-
-    kubectl get vulnerabilitymanifestsummaries -A
-    kubectl get vulnerabilitymanifests -A
-
-
-Which should get you something like:
-```
-kubectl get vulnerabilitymanifests -A
-NAMESPACE   NAME                                                                        CREATED AT
-kubescape   ghcr.io-fluxcd-notification-controller-v1.3.0-f0c3d6                        2024-12-18T15:05:57Z
-```
-
-And to actually view results (detailed manifest) do:
-
-    kubectl describe vulnerabilitymanifest ghcr.io-fluxcd-notification-controller-v1.3.0-f0c3d6 -n kubescape
-
-# Running the Kubescape 
-
-    kubescape scan
+    kubescape scan --verbose
 
 You should get result similar to this:
 
@@ -130,3 +98,98 @@ High-stakes workloads are defined as those which Kubescape estimates would have 
 3. namespace: open, name: nginx1, kind: Pod
    '$ kubescape scan workload Pod/nginx1 --namespace open'
 ```
+
+## Kubescape Running in the Cluster 🎥
+
+### Installation via Helm
+(change `clusterName=kind-kindopa`)
+
+    helm repo add kubescape https://kubescape.github.io/helm-charts/
+    helm repo update
+    helm upgrade --install kubescape kubescape/kubescape-operator -n kubescape --create-namespace --set clusterName=kind-kindopa --set capabilities.continuousScan=enable
+    kubectl get pods -n kubescape
+
+Expected results:
+```
+kubescape               kubescape-5587d4fb4f-cqtkp                          1/1     Running             0              92s
+kubescape               kubevuln-8784f7575-fsx8n                            0/1     Running             0              92s
+kubescape               node-agent-vnj6x                                    0/1     Running             0              93s
+kubescape               operator-688fd945fb-pzkmp                           0/1     ContainerCreating   0              92s
+kubescape               storage-6df8cc57d5-vxjw5                            0/1     ContainerCreating   0              92s
+```
+
+### Getting vuln sammaries:
+Run this:
+
+    kubectl get vulnerabilitymanifestsummaries -A
+    
+Which gets you something like:
+```
+NAMESPACE            NAME                                            CREATED AT
+open                 pod-nginx1-                                     2024-12-18T15:06:19Z
+```
+
+Then you continue with:
+
+    kubectl describe vulnerabilitymanifestsummaries pod-nginx1- -n open
+
+Which will finally get you something like this:
+```
+Name:         pod-nginx1-
+Namespace:    open
+Labels:       kubescape.io/context=filtered
+              kubescape.io/image-id=docker-io-library-nginx-sha256-fb197595ebe76b9c0c14ab68159fd3c0
+Annotations:  kubescape.io/image-id: docker.io/library/nginx@sha256:fb197595ebe76b9c0c14ab68159fd3c08bd067ec62300583543f0ebda353b5be
+              kubescape.io/image-tag: nginx:latest
+API Version:  spdx.softwarecomposition.kubescape.io/v1beta1
+Kind:         VulnerabilityManifestSummary
+Metadata:
+  Creation Timestamp:  2024-12-18T15:06:19Z
+  Resource Version:    4
+  UID:                 1a95d494-4ba1-4328-852f-09b68a57d6ca
+Spec:
+  Severities:
+    Critical:
+      All:  2
+    High:
+      All:  9
+    Low:
+      All:  7
+  Vulnerabilities Ref:
+    All:
+      Kind:       vulnerabilitymanifests
+      Name:       docker.io-library-nginx-latest-53b5be
+      Namespace:  open
+    Relevant:
+      Kind:       vulnerabilitymanifests
+      Name:       pod-nginx1-nginx1-85c4-4652
+      Namespace:  open
+Status:
+Events:  <none>    
+```
+
+### Now Let`s get detailed vuln report:
+
+    kubectl get vulnerabilitymanifests -A
+
+Which get you something like:
+```
+NAMESPACE   NAME                                                                        CREATED AT
+kubescape   pod-nginx1-nginx1-85c4-4652                                                 2024-12-18T15:05:57Z
+```
+
+Then you continue with this:
+
+    kubectl describe vulnerabilitymanifest pod-nginx1-nginx1-85c4-4652 -n kubescape
+
+Which will finally get you all the beefy details you are after.
+
+If you like JSON you can do this:
+
+    kubectl get vulnerabilitymanifest -A -o json
+
+Or if you like to dig through logs:
+
+    kubectl logs operator-688fd945fb-pzkmp -n kubescape
+    
+    
