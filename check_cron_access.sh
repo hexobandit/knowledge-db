@@ -2,7 +2,7 @@
 
 echo ""
 echo ""
-echo "###############   PHISHINGA.COM  ###################"
+echo "###############   hexoBandit.com  ###################"
 echo "#                                                  #"
 echo "#  Script that checks write permissions for        #" 
 echo "#  all cron-related files and directories          #"
