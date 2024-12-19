@@ -72,20 +72,16 @@ Inspect Container 👾
 
     cd /tmp; curl -L -o amicontained https://github.com/genuinetools/amicontained/releases/download/v0.4.7/amicontained-linux-amd64; chmod 555 amicontained; ./amicontained
 
-Installing KubeScape 👾 (this by itself does not get us far as we need to have context)
-So to make it work we need configured `~/.kube/config` or `in-cluster configuration via ServiceAccount
-
-    curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
-
-We could however still try to download `kubectl` 🎅
+Let's try to download `kubectl` 👾
 
     export PATH=/tmp:$PATH
-    cd /tmp; curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl; chmod 555 kubectl
+    cd /tmp
+    curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
+    chmod 555 kubectl
 
-And see if we got anything .. which most likely gets you this:
+And see if we got anything by runnin `kubectl get all`..  most likely this will get you something like: 
 
 ```
-# kubectl get all
 Error from server (Forbidden): pods is forbidden: User "system:serviceaccount:open:default" cannot list resource "pods" in API group "" in the namespace "open"
 Error from server (Forbidden): replicationcontrollers is forbidden: User "system:serviceaccount:open:default" cannot list resource "replicationcontrollers" in API group "" in the namespace "open"
 Error from server (Forbidden): services is forbidden: User "system:serviceaccount:open:default" cannot list resource "services" in API group "" in the namespace "open"
@@ -93,15 +89,64 @@ Error from server (Forbidden): daemonsets.apps is forbidden: User "system:servic
 Error from server (Forbidden): deployments.apps is forbidden: User "system:serviceaccount:open:default" cannot list resource "deployments" in API group "apps" in the namespace "open"
 ```
 
-By default, kubectl will attempt to use the default service account in /var/run/secrets/kubernetes.io/serviceaccount
+By default, kubectl will attempt to use the default service account in `/var/run/secrets/kubernetes.io/serviceaccount` which might not have needed rights.
 
 Another fun way to see what you can do:
 
     kubectl auth can-i create pods
 
+Ok, let's hunt for the 'cluster-admin' role 🎅
 
+    kubectl get clusterrolebindings -o yaml | grep -B 5 -A 5 "name: cluster-admin"
 
+This will get us:
 
+```
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2024-07-15T17:31:29Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: cluster-admin
+    resourceVersion: "139"
+    uid: 37936058-cddf-4318-8c0d-7ccc4abd7514
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    apiGroup: rbac.authorization.k8s.io
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:masters
+- apiVersion: rbac.authorization.k8s.io/v1
+--
+    resourceVersion: "1427"
+    uid: bf2dd95a-dd58-46c0-98ea-21ab85f369eb
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+  - kind: ServiceAccount
+    name: kustomize-controller
+    namespace: flux-system
+  - kind: ServiceAccount
+--
+    resourceVersion: "203"
+    uid: b71e21e6-2859-46ae-bf31-cf9aebac8a3b
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: kubeadm:cluster-admins
+- apiVersion: rbac.authorization.k8s.io/v1
+```
 
 ## More Than One Cluster?
 See all existting clusters
