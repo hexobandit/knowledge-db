@@ -178,17 +178,19 @@ kustomize-controller-6bc5d5b96-8p2qm   1/1     Running   18 (61m ago)   156d
 
     kubectl exec --stdin --tty kustomize-controller-6bc5d5b96-8p2qm -n flux-system -- /bin/sh
 
-#### And Let's try to download `kubectl` 👾
+#### And poke around what we got
+So we started with `id` and got back:
 
-    export PATH=/tmp:$PATH
-    cd /tmp
-    curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
-    chmod 555 kubectl
+    uid=65534(nobody) gid=65534(nobody) groups=1337,65534(nobody)
 
+So, there is not much we can do with this, additionally tools like curl or apt are not installed as well (bad luck). We can however stil accesss this : `cat /var/run/secrets/kubernetes.io/serviceaccount`
 
+#### Next possible paths are: 
 
+  - Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
+  - Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
 
-## More Than One Cluster?
+## Back to Kind .. More Than One Cluster? 💠
 See all existting clusters
 
     kind get clusters
