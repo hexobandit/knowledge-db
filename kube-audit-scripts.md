@@ -52,12 +52,12 @@ Blocked Syscalls (16):
 ## Verify PSA Settings 📰
 Start with the api-server configuration:
 
-        kubectl get pods -A | grep api
-        kubectl describe pod kube-apiserver-control-plane -n kube-system | grep -- --enable-admission-plugin
+    kubectl get pods -A | grep api
+    kubectl describe pod kube-apiserver-control-plane -n kube-system | grep -- --enable-admission-plugin
 
 ### Expected Results:
 
-       --enable-admission-plugins=NodeRestriction,PodSecurity
+    --enable-admission-plugins=NodeRestriction,PodSecurity
 
 - However from Kubernetes 1.23 onward, PSA is enabled by default unless explicitly disabled.
 - Even if the PodSecurity isnt't listed in `--enable-admission-plugins` it can still enforce profiles based on ns annotations.
@@ -65,21 +65,33 @@ Start with the api-server configuration:
 ### Check ns annotations for `pod-security`
 Run either of these two commands:
 
-        kubectl describe namespace flux-system
-        kubectl get namespaces flux-system -o json
+    kubectl describe namespace flux-system
+    kubectl get namespaces flux-system -o json
 
 and look for: 
 
-        "pod-security.kubernetes.io/enforce": "restricted",
-        "pod-security.kubernetes.io/enforce-version": "latest"
+    "pod-security.kubernetes.io/enforce": "restricted",
+    "pod-security.kubernetes.io/enforce-version": "latest"
 
 For all the namespaces do:
 
-        kubectl get namespaces -o custom-columns="NAMESPACE:.metadata.name,ENFORCE:.metadata.annotations.pod-security\.kubernetes\.io/enforce,AUDIT:.metadata.annotations.pod-security\.kubernetes\.io/audit,WARN:.metadata.annotations.pod-security\.kubernetes\.io/warn"
+    kubectl get namespaces -o custom-columns="NAMESPACE:.metadata.name,ENFORCE:.metadata.labels.pod-security\.kubernetes\.io/enforce,AUDIT:.metadata.labels.pod-security\.kubernetes\.io/audit,WARN:.metadata.labels.pod-security\.kubernetes\.io/warn"
+
+Please note: Check the previous -o json results to observe where is the `pod-security` layered. E.g., it could be `annotations`
+
+### Expected Results:
+```
+NAMESPACE               ENFORCE      AUDIT        WARN
+default                 <none>       <none>       <none>
+flux-system             <none>       <none>       restricted
+gatekeeper-system       restricted   restricted   restricted
+open                    <none>       <none>       <none>
+```
+
 
 Find just the namespaces with missing PSA:
 
-        kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.annotations["pod-security.kubernetes.io/enforce"] == null) | .metadata.name'
+    kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.annotations["pod-security.kubernetes.io/enforce"] == null) | .metadata.name'
     
 ## Indentify ServiceAccounts in use
 
