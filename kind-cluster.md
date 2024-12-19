@@ -190,6 +190,21 @@ So, there is not much we can do with this, additionally tools like curl or apt a
   - Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
   - Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
 
+```
+kubectl run debug-pod --rm -it --restart=Never \
+  --image=ubuntu:20.04 -n flux-system \
+  --overrides='{
+    "spec": {
+      "serviceAccountName": "kustomize-controller",
+      "containers": [{
+        "name": "debug-container",
+        "image": "ubuntu:20.04",
+        "securityContext": {"runAsUser": 0}
+      }]
+    }
+  }' -- bash
+```
+
 ## Back to Kind .. More Than One Cluster? 💠
 See all existting clusters
 
