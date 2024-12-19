@@ -50,7 +50,7 @@ Blocked Syscalls (16):
 ```
 
 ## Verify PSA Settings 📰
-we can look into the api-server configuration:
+Start with the api-server configuration:
 
         kubectl get pods -A | grep api
         kubectl describe pod kube-apiserver-control-plane -n kube-system | grep -- --enable-admission-plugin
