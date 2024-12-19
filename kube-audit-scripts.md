@@ -49,6 +49,20 @@ Blocked Syscalls (16):
         SYSLOG SETSID VHANGUP PIVOT_ROOT ACCT SETTIMEOFDAY SWAPON SWAPOFF REBOOT SETHOSTNAME SETDOMAINNAME INIT_MODULE DELETE_MODULE FANOTIFY_INIT OPEN_BY_HANDLE_AT FINIT_MODULE
 ```
 
+Well that`s interestin.. While some key security features are present (PID namespace, Seccomp filtering), the lack of user namespace isolation, unconfined AppArmor, and excessive capabilities create potential vulnerabilities.
+
+- Namespaces
+    - pid: true:
+        - Process namespace isolation is enabled, meaning processes inside the container are isolated from processes on the host.
+        - This is standard for containers and ensures better security by preventing access to host processes.
+    - user: false:
+        - User namespace isolation is not enabled.
+        - This means the container’s user IDs (UID/GID) map directly to the host system’s user IDs.
+        - **Risk**: If the container is running as root (UID 0), it also has root access on the host unless mitigated by other mechanisms.
+        - **Recommendation**: Enable user namespace isolation to map container user IDs to non-privileged host user IDs.
+
+
+
 ## Verify PSA Settings 📰
 Start with the api-server configuration:
 
@@ -73,13 +87,13 @@ and look for:
     "pod-security.kubernetes.io/enforce": "restricted",
     "pod-security.kubernetes.io/enforce-version": "latest"
 
-For all the namespaces do:
+For all the namespaces do: 👈
 
     kubectl get namespaces -o custom-columns="NAMESPACE:.metadata.name,ENFORCE:.metadata.labels.pod-security\.kubernetes\.io/enforce,AUDIT:.metadata.labels.pod-security\.kubernetes\.io/audit,WARN:.metadata.labels.pod-security\.kubernetes\.io/warn"
 
 Please note: Check the previous -o json results to observe where is the `pod-security` layered. E.g., it could be `annotations`
 
-### Expected Results:
+### Expected Results: 🥳
 ```
 NAMESPACE               ENFORCE      AUDIT        WARN
 default                 <none>       <none>       <none>
@@ -89,27 +103,3 @@ open                    <none>       <none>       <none>
 ```
 
 
-Find just the namespaces with missing PSA:
-
-    kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.annotations["pod-security.kubernetes.io/enforce"] == null) | .metadata.name'
-    
-## Indentify ServiceAccounts in use
-
-    kubectl get pods -A -o custom-columns="NAMESPACE:.metadata.namespace, NAME:.metadata.name, SERVIECACCOUNT:.spec.serviceAccountName"
-
-### Results:
-
-```
-NAMESPACE               NAME                                                SERVIECACCOUNT
-mutating                nginx-flux-mutated-6d8cf9d8bc-zs9lf                 default
-open                    claims-ai-csv                                       default
-open                    nginx-flux-dockerhub-567844c944-hk6d6               default
-open                    nginx1                                              default
-rest-attested           nginx-signed-chainguard                             default
-```
-
-Than check ServiceAccount Bindings
-
-    kubectl get clusterrolebindings -o yaml
-
-    tobecontinued
