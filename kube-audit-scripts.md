@@ -1,28 +1,7 @@
-# Various Kubernetes Commands and Scripts
-
-## List all pods from all namespaces and their containers 📦
-
-    $kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{"NAMESPACE: "}{.metadata.namespace}{"\n"}{"POD NAME: "}{.metadata.name}{"\n"}{"CONTAINER NAMES:"}{range .spec.containers[*]}{"\n"}{.name}{end}{end}'
-
-### Expected results:
-
-```
-NAMESPACE: default
-POD NAME: kali-latest
-CONTAINER NAMES:
-kali-latest
-NAMESPACE: default
-POD NAME: nginx-latest
-CONTAINER NAMES:
-nginx-latest
-NAMESPACE: kube-system
-POD NAME: aws-node-7nznw
-CONTAINER NAMES:
-aws-node
-aws-eks-nodeagent
-```
+# Kubernetes Audit Scripts
 
 ## Get Root Containers 📦
+
 ### Motivation:
 Running Kubernetes containers as root can lead to security vulnerabilities and malicious attacks, 
 as well as unintended changes to the host system. It's best to avoid running containers 
@@ -70,6 +49,32 @@ Blocked Syscalls (16):
         SYSLOG SETSID VHANGUP PIVOT_ROOT ACCT SETTIMEOFDAY SWAPON SWAPOFF REBOOT SETHOSTNAME SETDOMAINNAME INIT_MODULE DELETE_MODULE FANOTIFY_INIT OPEN_BY_HANDLE_AT FINIT_MODULE
 ```
 
+## Verify PSA Settings 📰
+we can look into the api-server configuration:
+
+        kubectl get pods -A | grep api
+        kubectl describe pod kube-apiserver-control-plane -n kube-system | grep -- --enable-admission-plugin
+
+### Expected Results:
+
+       --enable-admission-plugins=NodeRestriction,PodSecurity
+
+-** However from Kubernetes 1.23 onward, PSA is enabled by default unless explicitly disabled**.
+- Even if the PodSecurity isnt't listed in `--enable-admission-plugins` it can still enforce profiles based on ns annotations.
+
+### Check ns annotations for `pod-security`
+
+        kubectl get namespaces flux-system -o json
+
+or 
+
+        kubectl describe namespace flux-system
+
+and look for: 
+
+        "pod-security.kubernetes.io/enforce": "restricted",
+        "pod-security.kubernetes.io/enforce-version": "latest"
+    
 ## Indentify ServiceAccounts in use
 
     kubectl get pods -A -o custom-columns="NAMESPACE:.metadata.namespace, NAME:.metadata.name, SERVIECACCOUNT:.spec.serviceAccountName"
@@ -77,30 +82,7 @@ Blocked Syscalls (16):
 ### Results:
 
 ```
-NAMESPACE                NAME                                                SERVIECACCOUNT
-artifact-attestations   policy-controller-webhook-57fc859f6f-zvz4d          policy-controller-webhook
-flux-system             helm-controller-76dff45854-llb87                    helm-controller
-flux-system             kustomize-controller-6bc5d5b96-8p2qm                kustomize-controller
-flux-system             notification-controller-7f5cd7fdb8-stcrn            notification-controller
-flux-system             source-controller-54c89dcbf6-bpv2c                  source-controller
-gatekeeper-system       gatekeeper-audit-694f8c48cf-59wn9                   gatekeeper-admin
-gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-klxw9      gatekeeper-admin
-gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-pp6w8      gatekeeper-admin
-gatekeeper-system       gatekeeper-controller-manager-6c994cdfdc-rrd7f      gatekeeper-admin
-kube-system             coredns-7db6d8ff4d-c4tsh                            coredns
-kube-system             coredns-7db6d8ff4d-rjvkx                            coredns
-kube-system             etcd-kindopa-control-plane                          <none>
-kube-system             kindnet-tsxw2                                       kindnet
-kube-system             kube-apiserver-kindopa-control-plane                <none>
-kube-system             kube-controller-manager-kindopa-control-plane       <none>
-kube-system             kube-proxy-ss7nx                                    kube-proxy
-kube-system             kube-scheduler-kindopa-control-plane                <none>
-kubescape               kubescape-5587d4fb4f-cqtkp                          kubescape
-kubescape               kubevuln-8784f7575-fsx8n                            kubevuln
-kubescape               node-agent-vnj6x                                    node-agent
-kubescape               operator-688fd945fb-pzkmp                           operator
-kubescape               storage-6df8cc57d5-vxjw5                            storage
-local-path-storage      local-path-provisioner-988d74bc-dw2sd               local-path-provisioner-service-account
+NAMESPACE               NAME                                                SERVIECACCOUNT
 mutating                nginx-flux-mutated-6d8cf9d8bc-zs9lf                 default
 open                    claims-ai-csv                                       default
 open                    nginx-flux-dockerhub-567844c944-hk6d6               default
