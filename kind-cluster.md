@@ -190,6 +190,13 @@ So, there is not much we can do with this, additionally tools like curl or apt a
   - Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
   - Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
 
+
+####  Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
+
+TODO
+
+#### Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
+
 ```
 kubectl run debug-pod --rm -it --restart=Never \
   --image=ubuntu:20.04 -n flux-system \
@@ -204,6 +211,13 @@ kubectl run debug-pod --rm -it --restart=Never \
     }
   }' -- bash
 ```
+
+Which in my case did not work cause I had a policy in place :)
+
+```
+Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "debug-container" must set securityContext.allowPrivilegeEscalation=false),
+```
+
 
 ## Back to Kind .. More Than One Cluster? 💠
 See all existting clusters
