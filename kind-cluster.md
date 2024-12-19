@@ -187,15 +187,15 @@ So, there is not much we can do with this, additionally tools like curl or apt a
 
 #### Next possible paths are: 
 
-  - Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
-  - Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
+  1. Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
+  2. Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
 
 
-####  Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
+####  1. Use the creds from `/var/run/secrets/kubernetes.io/serviceaccount` and configure our client`s context
 
 TODO
 
-#### Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
+#### 2. Run a debug pod with the same `service-account` to retain the `cluster-admin` privileges, but allow it to run as root
 
 ```
 kubectl run debug-pod --rm -it --restart=Never \
