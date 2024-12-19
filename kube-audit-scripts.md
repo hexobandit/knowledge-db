@@ -61,7 +61,9 @@ Well that`s interestin.. While some key security features are present (PID names
         - **Risk**: If the container is running as root (UID 0), it also has root access on the host unless mitigated by other mechanisms.
         - **Recommendation**: Enable user namespace isolation to map container user IDs to non-privileged host user IDs.
 
-
+- AppArmor Profile
+    - unconfined:
+        - todo
 
 ## Verify PSA Settings 📰
 Start with the api-server configuration:
