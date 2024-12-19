@@ -72,6 +72,14 @@ and look for:
 
         "pod-security.kubernetes.io/enforce": "restricted",
         "pod-security.kubernetes.io/enforce-version": "latest"
+
+For all the namespaces do:
+
+        kubectl get namespaces -o custom-columns="NAMESPACE:.metadata.name,ENFORCE:.metadata.annotations.pod-security\.kubernetes\.io/enforce,AUDIT:.metadata.annotations.pod-security\.kubernetes\.io/audit,WARN:.metadata.annotations.pod-security\.kubernetes\.io/warn"
+
+Find just the namespaces with missing PSA:
+
+        kubectl get namespaces -o json | jq -r '.items[] | select(.metadata.annotations["pod-security.kubernetes.io/enforce"] == null) | .metadata.name'
     
 ## Indentify ServiceAccounts in use
 
