@@ -70,6 +70,9 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
 ![image](https://github.com/user-attachments/assets/7320bafd-636c-4113-be74-cf310485858c)
 source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
 
+![image](https://github.com/user-attachments/assets/b2a91e30-479e-47f9-afec-9ac8e35840b9)
+
+
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
 ### The 4Cs of Cloud Native Security
 Cloud > Cluster > Container > Code
