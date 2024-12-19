@@ -66,9 +66,12 @@ https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-s
     Supply Chain Compliance
     Automation and Tooling
 ```
-
+### High Level Diagram
 ![image](https://github.com/user-attachments/assets/7320bafd-636c-4113-be74-cf310485858c)
 source: https://kubernetes.io/images/docs/components-of-kubernetes.svg
+
+### Pod-centric View
+![image](https://github.com/user-attachments/assets/b2a91e30-479e-47f9-afec-9ac8e35840b9)
 
 
 ## Overview of Cloud Native Security 14% 🕵🏻‍♂️
@@ -226,8 +229,6 @@ Cloud > Cluster > Container > Code
  
   
 ## Kubernetes Cluster Component Security 22% 🎳
-
-![image](https://github.com/user-attachments/assets/b2a91e30-479e-47f9-afec-9ac8e35840b9)
 
 
 Here is an example illustrating the system flow starting with a kubectl apply command and ending with container startup on the node:
