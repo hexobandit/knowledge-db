@@ -59,16 +59,14 @@ we can look into the api-server configuration:
 
        --enable-admission-plugins=NodeRestriction,PodSecurity
 
--** However from Kubernetes 1.23 onward, PSA is enabled by default unless explicitly disabled**.
+- However from Kubernetes 1.23 onward, PSA is enabled by default unless explicitly disabled.
 - Even if the PodSecurity isnt't listed in `--enable-admission-plugins` it can still enforce profiles based on ns annotations.
 
 ### Check ns annotations for `pod-security`
-
-        kubectl get namespaces flux-system -o json
-
-or 
+Run either of these two commands:
 
         kubectl describe namespace flux-system
+        kubectl get namespaces flux-system -o json
 
 and look for: 
 
