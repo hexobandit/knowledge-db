@@ -89,7 +89,9 @@ and look for:
     "pod-security.kubernetes.io/enforce": "restricted",
     "pod-security.kubernetes.io/enforce-version": "latest"
 
-For all the namespaces do: 👈
+For all the namespaces do:
+### Verify Pod Security Admission Configuration 👈
+The command checks for PSA-related labels on namespaces. These labels control how PSA enforces the PSS (Pod Security Standards) for that namespace. 
 
     kubectl get namespaces -o custom-columns="NAMESPACE:.metadata.name,ENFORCE:.metadata.labels.pod-security\.kubernetes\.io/enforce,AUDIT:.metadata.labels.pod-security\.kubernetes\.io/audit,WARN:.metadata.labels.pod-security\.kubernetes\.io/warn"
 
@@ -104,4 +106,9 @@ gatekeeper-system       restricted   restricted   restricted
 open                    <none>       <none>       <none>
 ```
 
+## Other Useful Things
+
+Don`t know cluster name?
+
+     kubectl config current-context
 
