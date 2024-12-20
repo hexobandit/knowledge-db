@@ -12,7 +12,7 @@ This script retrieves a JSON output of all pods in a Kubernetes cluster and chec
 if any of the containers are running as root by examining their security context. 
 It then outputs the namespace, pod name, container name, and whether it's running as root or not.
 
-### Script
+### Script1
 
     kubectl get pods --all-namespaces -o json | jq -r '.items[] | {ns: .metadata.namespace, pod: .metadata.name, containers: .spec.containers[]} | "Namespace: \(.ns) - Pod: \(.pod) - Container: \(.containers.name) - Running as root: \(.containers.securityContext.runAsUser == 0 or .containers.securityContext.runAsUser == null)"'
 
@@ -28,6 +28,16 @@ Namespace: kube-system - Pod: coredns-6f6d89bcc9-rbh2x - Container: coredns - Ru
 Namespace: kube-system - Pod: eks-pod-identity-agent-kdctc - Container: eks-pod-identity-agent - Running as root: true
 Namespace: kube-system - Pod: kube-proxy-czh57 - Container: kube-proxy - Running as root: true
 ```
+
+### Script2
+    kubectl get pods --all-namespaces -o custom-columns="NAMESPACE:.metadata.namespace,POD:.metadata.name,CONTAINER:.spec.containers[*].name,RUN_AS_ROOT:.spec.containers[*].securityContext.runAsUser"
+
+```
+NAMESPACE    POD               CONTAINER     RUN_AS_ROOT
+default      my-pod            my-container  <none>
+flux-system  another-pod       app           0
+```
+
 
 ## Inspect Containers 👾
 Container introspection tool. Find out what container runtime is being used as well as features available.
