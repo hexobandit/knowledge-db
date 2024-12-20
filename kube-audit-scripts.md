@@ -17,25 +17,24 @@ It then outputs the namespace, pod name, container name, and whether it's runnin
     kubectl get pods --all-namespaces -o json | jq -r '.items[] | {ns: .metadata.namespace, pod: .metadata.name, containers: .spec.containers[]} | "Namespace: \(.ns) - Pod: \(.pod) - Container: \(.containers.name) - Running as root: \(.containers.securityContext.runAsUser == 0 or .containers.securityContext.runAsUser == null)"'
 
 ### Results:
-
 ```
 Namespace: default - Pod: kali-latest - Container: kali-latest - Running as root: true
 Namespace: default - Pod: nginx-latest - Container: nginx-latest - Running as root: true
 Namespace: kube-system - Pod: aws-node-7nznw - Container: aws-node - Running as root: true
 Namespace: kube-system - Pod: aws-node-7nznw - Container: aws-eks-nodeagent - Running as root: true
 Namespace: kube-system - Pod: coredns-6f6d89bcc9-j7q2j - Container: coredns - Running as root: true
-Namespace: kube-system - Pod: coredns-6f6d89bcc9-rbh2x - Container: coredns - Running as root: true
-Namespace: kube-system - Pod: eks-pod-identity-agent-kdctc - Container: eks-pod-identity-agent - Running as root: true
-Namespace: kube-system - Pod: kube-proxy-czh57 - Container: kube-proxy - Running as root: true
 ```
 
-### Script2
+### Script2 << To work on
+
     kubectl get pods --all-namespaces -o custom-columns="NAMESPACE:.metadata.namespace,POD:.metadata.name,CONTAINER:.spec.containers[*].name,RUN_AS_ROOT:.spec.containers[*].securityContext.runAsUser"
 
+### Results:
 ```
 NAMESPACE    POD               CONTAINER     RUN_AS_ROOT
 default      my-pod            my-container  <none>
 flux-system  another-pod       app           0
+gatekeeper   gatekeeper-c      manager       1000
 ```
 
 
@@ -45,7 +44,6 @@ Container introspection tool. Find out what container runtime is being used as w
     cd /tmp; curl -L -o amicontained https://github.com/genuinetools/amicontained/releases/download/v0.4.7/amicontained-linux-amd64; chmod 555 amicontained; ./amicontained
 
 ### Results:
-
 ```
 Container Runtime: kube
 Has Namespaces:
