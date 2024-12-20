@@ -7,12 +7,9 @@ Running Kubernetes containers as root can lead to security vulnerabilities and m
 as well as unintended changes to the host system. It's best to avoid running containers 
 as root and use a non-root user with minimal privileges instead.
 
-### What does it do:
 This script retrieves a JSON output of all pods in a Kubernetes cluster and checks 
 if any of the containers are running as root by examining their security context. 
 It then outputs the namespace, pod name, container name, and whether it's running as root or not.
-
-### Script1
 
     kubectl get pods --all-namespaces -o json | jq -r '.items[] | {ns: .metadata.namespace, pod: .metadata.name, containers: .spec.containers[]} | "Namespace: \(.ns) - Pod: \(.pod) - Container: \(.containers.name) - Running as root: \(.containers.securityContext.runAsUser == 0 or .containers.securityContext.runAsUser == null)"'
 
@@ -25,7 +22,7 @@ Namespace: kube-system - Pod: aws-node-7nznw - Container: aws-eks-nodeagent - Ru
 Namespace: kube-system - Pod: coredns-6f6d89bcc9-j7q2j - Container: coredns - Running as root: true
 ```
 
-### Script2 << To work on
+Same thing as above but without `-jq` and in the table, yay!
 
     kubectl get pods --all-namespaces -o custom-columns="NAMESPACE:.metadata.namespace,POD:.metadata.name,CONTAINER:.spec.containers[*].name,RUN_AS_ROOT:.spec.containers[*].securityContext.runAsUser"
 
