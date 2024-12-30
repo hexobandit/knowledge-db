@@ -94,7 +94,7 @@ By default, kubectl will attempt to use the default service account in `/var/run
 #### Another fun way to see what you can do:
 
     kubectl auth can-i create pods
-
+    kubectl auth can-i list
 
 
 ## Hunting For `Cluster-Admin` Role 🎅
