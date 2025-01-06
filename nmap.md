@@ -35,6 +35,10 @@ Do UDP+NULL+FIN+XMASS If the port is open then there is no response to the malfo
 - ```script=default```
 - ```script=discovery```
 
+Check for SSL/TLS downgrade attacks: 
+
+    nmap --script ssl-enum-ciphers -p 443 emphonic.com
+
 ### Download more goodies
 - https://nmap.org/nsedoc/scripts/
 
