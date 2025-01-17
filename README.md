@@ -61,3 +61,22 @@ Powershell
 Bash
 
     curl https://something.com/bashscript.sh | sh
+
+### BASE64 
+--- 
+
+Convert to Base64
+
+    [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("roman"))      
+
+Results:
+
+	cm9tYW4=
+
+Decode from Base64
+
+    [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('cm9tYW4='))
+
+Results:
+
+	Roman
