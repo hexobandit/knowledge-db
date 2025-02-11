@@ -1,15 +1,19 @@
 # Kubescape 📡
 ## Installation 
 
-Windows
+### Windows
 
     choco install kubescape
 
-Bash
+### Bash
 
     curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
 
-Mac
+- If run as root, the script will install the kubescape binary in ```/usr/local/bin```.
+- If run as a user, it will put the binary in ```/.kubescape/bin```.
+- Remember to add the Kubescape CLI to your path with: ```$ export PATH=$PATH:/home/<USERNAME>/.kubescape/bin``` (path depends on your environment (the installation scripts notifies you about it)
+
+### Mac
 
     brew install kubescape
 
