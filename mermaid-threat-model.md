@@ -38,7 +38,7 @@ flowchart LR
         db--TCP/IP-->api
         api--TCP/IP-->db
     end
-    classDef boundary fill:lightgrey,stroke-dasharray: 5 5
+    classDef boundary fill:none,stroke-dasharray: 5 5
     external:::boundary
     internal:::boundary
     k8s:::boundary
