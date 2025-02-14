@@ -51,6 +51,7 @@ flowchart LR
 - Think of input validations and parameterized queries
 - Think of rate-limitting 
 - Think of kubernetes infra threats
+- TLS 1.2 or 1.3 everywhere
 - Think of least privilege access for API to DB interactions
 - And many many more... 👀
 
