@@ -11,6 +11,10 @@ This threat model should serve as a starting point for any security review for a
 - Reverse Proxy → API (Flask): Processes business logic and connects to the database.
 - API → Database (SQL): Stores and retrieves application data.
 
+## Tools Used
+- SimpleMermaid.com 
+- ThreatBandit.com
+
 ## Mermaid Diagram
 ```mermaid
 flowchart LR
