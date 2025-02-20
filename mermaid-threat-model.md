@@ -12,8 +12,8 @@ This threat model should serve as a starting point for any security review for a
 - API → Database (SQL): Stores and retrieves application data.
 
 ## Tools Used
-- [https://SimpleMermaid.com](SimpleMermaid.com)
-- [https://ThreatBandit.com](ThreatBandit.com)
+- [SimpleMermaid.com](https://SimpleMermaid.com)
+- [ThreatBandit.com](https://ThreatBandit.com)
 
 ## Mermaid Diagram
 ```mermaid
