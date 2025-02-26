@@ -76,7 +76,7 @@ Probably better way:
     | filter count > 10
     | sort count desc
 
-## Summary Count By + Timestamp 〽️
+## Summary Count By + Timestamp 〽️ (Display Graph)
 **Displays events per minute in the graph bar** 
 
     | fields timestamp, event.type, content
