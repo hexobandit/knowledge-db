@@ -35,18 +35,20 @@ list_repositories_with_workflows_app() {
                     fi
                     # Remove line breaks from the Base64 content
                     content=$(echo "$content" | tr -d '\n')
-                    # Validate Base64 content
-                    if ! [[ "$content" =~ ^[A-Za-z0-9+/]+={0,2}$ ]]; then
-                        echo "Invalid Base64 content for $workflow in $repo"
-                        continue
-                    fi
-                    # Add padding if necessary
+                    
+                    # Replace URL-safe Base64 characters (_ and - with / and +)
+                    content=$(echo "$content" | tr '_-' '/+')
+                    
+                    # Ensure Base64 padding (required for correct decoding)
                     while (( ${#content} % 4 )); do
                         content="${content}="
                     done
-                    # Decode using openssl
+                    
+                    # Decode using OpenSSL
                     decoded_content=$(echo "$content" | openssl base64 -d 2>/dev/null)
-                    if [ $? -ne 0 ]; then
+                    
+                    # Check if decoding was successful
+                    if [ $? -ne 0 ] || [ -z "$decoded_content" ]; then
                         echo "Error decoding base64 content for $workflow in $repo"
                         continue
                     fi
