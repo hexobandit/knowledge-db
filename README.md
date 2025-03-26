@@ -18,6 +18,7 @@ Go to your project folder and run:
     deactivate
 
 ### Poking Around 👀
+---
 ```
 id
 uname -a
