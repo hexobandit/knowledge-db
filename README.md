@@ -31,6 +31,17 @@ capsh —print #printCapabilities
 ifconfig | grep inet
 cat /etc/shadow
 
+who
+last
+sudo journalctl -u ssh --since "200 days ago"
+sudo cat /var/log/auth.log | grep "Failed password"
+history
+
+sudo netstat -tulnp
+sudo ss -tulwn
+sudo netstat -anp | grep ESTABLISHED
+sudo journalctl -u ssh | grep "Accepted"
+
 ls /var/run/secrets/kubernetes.io/serviceaccount
 cat /var/run/secrets/kubernetes.io/serviceaccount/token
 cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
