@@ -2,7 +2,7 @@
 Various commands, scripts and how-to documents
 
 ### Retrieve Wi-Fi Passwords on MacOS 
-
+---
     security find-generic-password -ga "HomeWiFi"
 
 ### Bash Ping Sweep 🛰️
@@ -92,3 +92,14 @@ Decode from Base64
 Results:
 
 	Roman
+
+### Aircrack-ng 
+--- 
+	sudo apt update
+	sudo apt install aircrack-ng
+	iwconfig # Take note of the interface you want to monitor on
+	sudo airmon-ng check kill
+	sudo airmon-ng
+	sudo airmon-ng start wlx1xxxxxxx
+	sudo airmon-ng wlan0mon
+	sudo systemctl restart NetworkManager
