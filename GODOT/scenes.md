@@ -11,6 +11,19 @@
 ## Best Practices
 - tralala
 
+## Singleton (Autoload)
+Godot's scene system, while powerful and flexible, has a drawback: there is no method for storing information that is needed by more than one scene. And thats where singleton that runs via autoload comes in.
+
+Perfect for things like player's score or inventory
+- [Offical Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html#doc-singletons-autoload)
+
+## Signal
+Signal is like “Hey! Something just happened!” …and letting other parts of your game decide what to do about it.
+
+- Perfect for things that happen often like shooting, getting hit, dying, etc.
+- [Official Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/instancing_with_signals.html#shooting-example)
+
+
 ## Transitions 🎃
 Let`s start with some cool transitions between scenes:
 
@@ -19,5 +32,4 @@ Let`s start with some cool transitions between scenes:
 3. 33
 4. 44
 
-## Dictionary
-- Singletons (Autoload)
+
