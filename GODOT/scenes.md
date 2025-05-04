@@ -27,11 +27,33 @@ Signal is like “Hey! Something just happened!” …and letting other parts of
 todo
 
 ## 🎃 Transitions 
+
+Changing current scene (Define the function):
+
+    func _my_level_was_completed():
+	    get_tree().change_scene_to_file("res://levels/level2.tscn")
+
+    func _on_button_pressed():
+	    get_tree().change_scene_to_file("res://levels/level2.tscn")
+
+- [Official Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/scene_tree.html#changing-current-scene)
+
 Let`s start with some cool transitions between scenes:
 
-1. dd
-2. 22
-3. 33
-4. 44
+### Fade between the scenes
+NOT TESTED YET
 
-
+    extends Control  # or Node2D, CanvasLayer, etc.
+    
+    @onready var fade_rect = $CanvasLayer/FadeRect
+    @onready var tween = get_tree().create_tween()
+    
+    const NEXT_SCENE = preload("res://levels/level2.tscn")
+    
+    func _on_button_pressed():
+    	fade_rect.visible = true
+    	tween.tween_property(fade_rect, "modulate:a", 1.0, 1.0)  # Fade to black in 1 second
+    	tween.tween_callback(Callable(self, "_change_scene"))
+    
+    func _change_scene():
+    	get_tree().change_scene_to_packed(NEXT_SCENE)
