@@ -27,7 +27,7 @@ Signal is like “Hey! Something just happened!” …and letting other parts of
 todo
 
 ## 🎃 Transitions 
-
+### Basic change between scenes
 Changing current scene via button:
 
 	extends Node2D
