@@ -39,29 +39,34 @@ Changing current scene via button:
 		get_tree().change_scene_to_file("res://scene/scene01.tscn")
 
 
-Just make sure to properly set the button first:
+- Just make sure to properly set the button first:
 
-<img width="209" alt="image" src="https://github.com/user-attachments/assets/6e05aa06-754b-47d8-96cc-96187d17839d" />
+- <img width="209" alt="image" src="https://github.com/user-attachments/assets/6e05aa06-754b-47d8-96cc-96187d17839d" />
 
 
 - [Official Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/scene_tree.html#changing-current-scene)
 
-Let`s start with some cool transitions between scenes:
 
 ### Fade between the scenes
-NOT TESTED YET
+Let`s start with some cool transitions between scenes:
 
-    extends Control  # or Node2D, CanvasLayer, etc.
-    
-    @onready var fade_rect = $CanvasLayer/FadeRect
-    @onready var tween = get_tree().create_tween()
-    
-    const NEXT_SCENE = preload("res://levels/level2.tscn")
-    
-    func _on_button_pressed():
-    	fade_rect.visible = true
-    	tween.tween_property(fade_rect, "modulate:a", 1.0, 1.0)  # Fade to black in 1 second
-    	tween.tween_callback(Callable(self, "_change_scene"))
-    
-    func _change_scene():
-    	get_tree().change_scene_to_packed(NEXT_SCENE)
+	extends Node2D
+	
+	@onready var fade_rect := $CanvasLayer/ColorRect
+	
+	func _ready():
+		fade_rect.color = Color(0, 0, 0, 0) # black, fully transparent
+		fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	func _on_button_pressed() -> void:
+		var tween = get_tree().create_tween()
+		tween.tween_property(fade_rect, "color:a", 1.0, 1.0)
+		tween.tween_callback(Callable(self, "_change_scene_main"))
+		
+	func _change_scene_main():
+		get_tree().change_scene_to_file("res://scene/main.tscn")
+
+  - Just make sure to properly set the button & the CanvasLayer along with ColorReact:
+
+  - <img width="199" alt="image" src="https://github.com/user-attachments/assets/ab4337dd-ffcc-4515-af6c-4d29d91e069e" />
+
