@@ -28,13 +28,21 @@ todo
 
 ## 🎃 Transitions 
 
-Changing current scene (Define the function):
+Changing current scene via button:
 
-    func _my_level_was_completed():
-	    get_tree().change_scene_to_file("res://levels/level2.tscn")
+	extends Node2D
+	
+	func _on_button_pressed() -> void:
+		_change_scene_01()
+	
+	func _change_scene_01():
+		get_tree().change_scene_to_file("res://scene/scene01.tscn")
 
-    func _on_button_pressed():
-	    get_tree().change_scene_to_file("res://levels/level2.tscn")
+
+Just make sure to properly set the button first:
+
+<img width="209" alt="image" src="https://github.com/user-attachments/assets/6e05aa06-754b-47d8-96cc-96187d17839d" />
+
 
 - [Official Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/scene_tree.html#changing-current-scene)
 
