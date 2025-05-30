@@ -59,3 +59,24 @@ flowchart LR
 - Think of least privilege access for API to DB interactions
 - And many many more... 👀
 
+## Mermaid Threat Model for Satellite 
+This is work in progress
+```
+flowchart LR
+
+CubeSat <--> OtherCubeSat
+CubeSat <--> Antenna
+OtherCubeSat <--> Antenna
+GroundStation <--> Antenna
+
+maliciousAntenna_SDR:::critical -. uplinkJamming .-> CubeSat
+maliciousAntenna_SDR:::critical -. downlinkInterception .-> CubeSat
+
+supplyChain:::critical -.-> CubeSat
+networkAttacks:::critical -.-> GroundStation
+physicalAttacks:::critical -.-> GroundStation
+
+supplyChain:::critical -.-> GroundStation
+
+classDef critical fill:#f66,stroke:#900,stroke-width:0px;
+```
