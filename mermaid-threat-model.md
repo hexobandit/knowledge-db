@@ -61,7 +61,8 @@ flowchart LR
 
 ## Mermaid Threat Model for Satellite 
 This is work in progress
-```
+
+```mermaid
 flowchart LR
 
 CubeSat <--> OtherCubeSat
