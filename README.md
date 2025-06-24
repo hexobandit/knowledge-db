@@ -93,6 +93,11 @@ Results:
 
 	Roman
 
+### Secret Key
+--- 
+Generate a suitable string for ```SECRET_KEY``` using ```openssl rand -hex 32``` from your shell.
+
+
 ### Aircrack-ng 
 --- 
 	sudo apt update
