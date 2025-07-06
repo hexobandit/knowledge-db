@@ -1,0 +1,19 @@
+# Godot-specific
+.import/
+.export/
+*.import
+*.godot/tmp_*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Godot's .mono directory (if using C#)
+.mono/
+
+# Exported builds
+export/*
+export_presets.cfg
