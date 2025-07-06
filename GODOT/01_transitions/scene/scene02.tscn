@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpvr6apmgtu7a"]
+
+[ext_resource type="Script" uid="uid://cof1qjdcijkw6" path="res://script/scene_02.gd" id="1_dshr6"]
+[ext_resource type="Texture2D" uid="uid://ery0x4jdwjha" path="res://graphic/autumn04.png" id="1_sco0f"]
+[ext_resource type="Texture2D" uid="uid://brj2adgn4fpye" path="res://graphic/broccoli-spritesheet.png" id="2_6nx1p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dshr6"]
+atlas = ExtResource("2_6nx1p")
+region = Rect2(0, 0, 208, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbau0"]
+atlas = ExtResource("2_6nx1p")
+region = Rect2(208, 0, 208, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7idc"]
+atlas = ExtResource("2_6nx1p")
+region = Rect2(416, 0, 208, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ob3u"]
+atlas = ExtResource("2_6nx1p")
+region = Rect2(624, 0, 208, 210)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hjupu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dshr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbau0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7idc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ob3u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_dshr6")
+
+[node name="Autumn04" type="Sprite2D" parent="."]
+position = Vector2(360, 642.353)
+scale = Vector2(0.882353, 0.882353)
+texture = ExtResource("1_sco0f")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+position = Vector2(368, 880)
+sprite_frames = SubResource("SpriteFrames_hjupu")
+frame_progress = 0.920754
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
